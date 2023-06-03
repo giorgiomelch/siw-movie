@@ -1,0 +1,106 @@
+body { 
+    font-family: "Geneva";
+    color:dimgrey;
+}
+
+a { 
+	text-decoration: none; 
+    color: darkgrey;
+}
+
+a:hover { 
+	text-decoration: underline; 
+}
+
+label {
+	width: 8em;
+	display: inline-block;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+header {
+  background-color: rgb(98, 192, 144);
+  color: white;
+  height: 2.5em;
+  margin-bottom: 0.5em;
+  padding: 0.2em;
+  text-align: right; 
+}
+
+header a { 
+	text-decoration: none; 
+    color: white;
+    font-size: 1.6em;
+}
+header span{
+	text-decoration: none; 
+    color: darkgreen;
+    font-size: 1.4em;
+}
+
+nav{
+	background-color: springgreen;
+	color: black;
+	height: 1.5em;
+	margin-bottom: 0.5em;
+	padding: 0.2em;
+	text-align: left; 
+}
+nav a{
+	float: left;
+	display: block;
+	color: black;
+	font-size: 1.3em;
+}
+nav a:hover{
+	background-color: seagreen;
+ 	color: black;
+}
+
+.suggest{
+	background-color: lightseagreen;
+	color: black;
+	height: 3em;
+	margin-bottom: 0.5em;
+	padding: 0.2em;
+	text-align: center; 
+}
+.suggest span{
+	display: block;
+	color: black;
+	font-size: 1.3em;
+}
+
+.column {
+  float: left;
+}
+
+/* Left and right column */
+.column.side {
+  width: 30%;
+}
+
+/* Middle column */
+.column.middle {
+  width: 35%;
+  margin:10px;
+}
+
+button {
+  display: inline-block;
+  background-color: rgb(98, 192, 144);
+  color: #ffffff;
+  text-align: center;
+  border: 4px double #cccccc;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 5px;
+}
+button:hover {
+  background-color: lightgreen;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		Form confirm to delete film
+	</title>
+	<link rel="stylesheet" href="/css/stileGenerale.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+	
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+	
+	<div>
+		<span>Sicuro di voler cancellare questa recensione </span>
+		<div><span th:text="${review.title} + ' voto: ' + ${review.rating}"></span></div>
+		<div><span th:text="${review.text}"></span></div>
+	</div>
+	
+	<form th:action="@{'/admin/deleteReview/' + ${review.id}}" method="GET" >
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>	
+	
+</body>
+
+</html>

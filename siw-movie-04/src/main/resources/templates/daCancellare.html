@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Film
+		</title>
+		<link rel="stylesheet" href="/css/stileProva.css" />
+	</head>
+	<body>
+		
+		<header>
+			<div class="headerFlexContainer">
+				<div><a href="/"><img src="/images/home.png" width="8%" />Home</a></div>
+				<div><a href="/"><img src="/images/logo-siw.png" width="30%" /></a></div>
+				<div class="headerFlexContainer right">
+					<div th:if="${#request.userPrincipal}">
+						<span th:text="${#request.userPrincipal.principal.username}"></span>
+						<a href="/logout">Logout</a>
+					</div>
+					<div th:unless="${#request.userPrincipal}">
+						<a href="/login">Login</a>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		<section>
+			<div class="sectionFlexContainer">
+				<div class="sectionFlexContainer up">
+					<div class="sectionFlexContainer up column">
+						ciaoo
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

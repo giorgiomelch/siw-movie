@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			SiwMovie - Homepage
+		</title>
+		<link rel="stylesheet" href="/css/stileGenerale.css" />
+	</head>
+	
+<body>
+	<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+	
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+	<h1>Scrivi recensione per: "<span th:text="${movie.title}"></span>"</h1>
+	
+	<form th:action="@{'/createReviewToFilm' + '/' + ${movie.id}}" method="POST" th:object="${review}">
+		<fieldset>
+    		<legend><strong>Nuova recensione:</strong></legend>
+			<div th:if="${#fields.hasGlobalErrors()}">
+				<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+			</div>
+			
+			<div>
+				<label for="title">Titolo:</label> <span><input required type="text" th:field="${review.title}" id="title"/></span>
+				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+			</div>
+	
+			<div>
+				<label for="testo">Testo:</label>
+				 <span><textarea id="testo" name="testo" th:field="${review.text}" rows="4" cols="50"></textarea></span>
+				 
+				 <span th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
+			</div>
+			<div>
+				<label for="quantity">Recensione(max 5):</label>
+	  			<input type="number" value="1" th:field="${review.rating}" id="quantity" name="quantity" min="1" max="5" >
+	  			<span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
+			</div>
+			<div>
+				<span><button type="submit">Conferma</button></span>
+			</div>
+		</fieldset>
+	</form>
+</body>
+
+</html>

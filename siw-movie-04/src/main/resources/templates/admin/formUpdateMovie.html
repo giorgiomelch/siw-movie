@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Film</title>
+	<link rel="stylesheet" href="/css/stileGenerale.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+	
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+    <div th:if="${movie}">
+	    <h1 th:text="${movie.title}">Titolo Film</h1>
+        <div>Anno: <span th:text="'(' + ${movie.year} + ')'">anno in cifre</span></div>
+        <div th:if="${movie.director}">
+			Regista: <span th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></span>
+		</div>
+		<div th:unless="${movie.director}">Nessun direttore associato al film</div>
+        <a th:href="@{'/admin/addDirectorToMovie'+'/'+${movie.id}}"> modifica regista </a>
+        <strong>/</strong>
+        <a th:href="@{'/admin/updateActorsOfMovie'+ '/' + ${movie.id}}">modifica attori</a>
+        <strong>/</strong>
+        <a th:href="@{'/admin/formConfirmDeleteFilm'+'/'+ ${movie.id}}">elimina film</a>
+    </div>
+    <div th:unless="${movie}">Non esiste</div>
+  </body>
+</html>

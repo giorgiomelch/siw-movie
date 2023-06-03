@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Film
+		</title>
+		<link rel="stylesheet" href="/css/stileMovie.css" />
+	</head>
+	<body>
+		<header>
+			<div th:if="${#request.userPrincipal}">
+				<span th:text="${#request.userPrincipal.principal.username}"></span>
+				<a href="/logout">Logout</a>
+			</div>
+			<div th:unless="${#request.userPrincipal}">
+				<a href="/login">Login</a>
+			</div>
+		</header>	
+		<nav>
+			<a href="/"><img src="/images/home.png" width="3%" />Home</a>
+		    <a href="/movies"><img src="/images/iconaLista.png" width="3%" />Elenco film</a>
+		</nav>	
+		
+		<div class="row">
+		  <div class="column side">
+		    <span><img width="100%" th:src=${movie.urlImage} /></span>
+		  </div>
+		  
+		<div class="column middle">
+			 <h1 th:text="${movie.title}+'(' + ${movie.year} + ')'"></h1>
+			 <form th:action="@{'/suggestMovie' + '/' + ${movie.id}}" method="GET">
+				 <div>
+					<span><button type="submit">Suggerisci film</button></span>
+				</div>
+			</form>
+			    
+			 <div th:if="${movie.director}">
+			  	Regista: <span th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></span>
+			 </div>
+			 <div th:unless="${movie.director}">L'archivio non contiene il regista del film</div>
+			 <div>
+				 <span>Attori:</span>
+				<ul>
+					<li th:each="actor : ${movie.actors}">
+						<span th:text="${actor.name} + ' ' + ${actor.surname}"></span>
+					</li>
+				</ul>
+			 </div>
+		</div>
+		  
+		  <div class="column side">
+			  
+				<div th:if="${movie.reviews}">
+		   			 <h1>Recensioni
+		   			 <form th:action="@{'/addReviewToMovie' + '/' + ${movie.id}}" method="GET" th:object="${movie}">
+							<span><button type="submit" >Aggiungi recensione</button></span>
+		   			 </form>
+		   			 </h1>
+		   			 <div>
+		        		Media recensioni: <span th:text="${movie.getAverageReview()}"></span>
+		        	 </div>
+	       			 <div>
+						<ul>
+							<li th:each="review : ${movie.reviews}">
+								<div><span th:text="${review.user.name}+' '+${review.user.surname}"></span></div>
+								<div>Voto: <span th:text="${review.rating}"></span></div>
+								<div><strong th:text="${review.title}"></strong></div>
+								<div><span th:text="${review.text}"></span></div>
+								<div><a th:href="@{'/admin/formConfirmDeleteReview/'+${review.id}}">elimina recensione</a></div>
+							</li>
+						</ul>						
+					</div>
+				</div>
+				<div th:unless="${movie.reviews}">Nessuna recensione nell'archivio</div>
+		  </div>
+		</div>
+  
+		
+		
+	</body>
+</html>
