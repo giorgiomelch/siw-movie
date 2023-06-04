@@ -18,3 +18,8 @@ insert into artist (id, name, surname, url_of_picture, date_of_birth) values(nex
 
 insert into credentials (id, username, password, role) values(nextval('hibernate_sequence'), 'Giorgio', '$2a$10$Dx0p3ZAvYv8QuDHBy0gGU.GyAaMGJM0UqN8WwyG/v3CCkDELy2zg.', 'ADMIN');
 
+
+insert into users (id, name, surname, email)  values(nextval('hibernate_sequence'), 'Luca', 'Luca' ,'luca@luca.it');
+insert into credentials (id, username, password, role,user_id) values(nextval('hibernate_sequence'), 'Luca', '$2a$10$H2HR949PLG9rWBwE2iMNmOgD9tJvRSsXjI2eMyDdu0iSOMgXXjsdy' ,'ADMIN',nextval('hibernate_sequence') -2);
+insert into users (id, name, surname, email)  values(nextval('hibernate_sequence'), 'Paolo', 'Paolo' ,'paolo@paolo.it');
+insert into credentials (id, username, password, role,user_id) values(nextval('hibernate_sequence'), 'User', '$2a$10$H2HR949PLG9rWBwE2iMNmOgD9tJvRSsXjI2eMyDdu0iSOMgXXjsdy' ,'DEFAULT',nextval('hibernate_sequence') -2);
