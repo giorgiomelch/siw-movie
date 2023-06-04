@@ -3,6 +3,7 @@ package it.uniroma3.siw.service;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,6 @@ import it.uniroma3.siw.repository.ArtistRepository;
 public class ArtistService {
 
 	@Autowired private ArtistRepository artistRepository;
-	
-	@Transactional
-	public boolean createNewArtist(Artist artist) {
-		boolean res= false;
-		if(!this.artistRepository.existsByNameAndSurnameAndDateOfBirth(artist.getName(), artist.getSurname(), artist.getDateOfBirth())) {
-			this.artistRepository.save(artist);
-			res=true;
-			}
-		return res;
-	}
 	
 	public Iterable<Artist> findAllArtist(){
 		return this.artistRepository.findAll();
@@ -54,6 +45,7 @@ public class ArtistService {
 			this.artistRepository.save(actor);
 		}
 	}
+	@Transactional
 	public void removeMovieAssociationFromActor(Long idActor) {
 		Artist artist= this.artistRepository.findById(idActor).get();
 		artist.setMoviesActed(null);
@@ -63,5 +55,9 @@ public class ArtistService {
 	public void delete(Long idArtist) {
 		Artist artist= this.artistRepository.findById(idArtist).get();
 		this.artistRepository.delete(artist);
+	}
+
+	public void saveArtist(@Valid Artist artist) {
+		this.artistRepository.save(artist);		
 	}
 }

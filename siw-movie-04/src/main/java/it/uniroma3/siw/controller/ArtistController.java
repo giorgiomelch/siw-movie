@@ -46,7 +46,7 @@ public class ArtistController {
 	public String newArtist(@Valid @ModelAttribute("artist") Artist artist, BindingResult bindingResult, Model model) {
 		this.artistValidator.validate(artist, bindingResult);
 		if(!bindingResult.hasErrors()) {
-			this.artistService.createNewArtist(artist);
+			this.artistService.saveArtist(artist);
 			model.addAttribute("artist", artist);
 			return "artist.html";
 		}
