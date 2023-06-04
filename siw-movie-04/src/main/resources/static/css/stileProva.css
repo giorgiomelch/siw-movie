@@ -1,67 +1,49 @@
-body { 
-    font-family: "Geneva";
-    color:dimgrey;
-}
+body {
+      margin: 0;
+      padding: 0;
+    }
 
 a { 
 	text-decoration: none; 
     color: darkgrey;
+    font-size: 1.8em;
 }
 
 a:hover { 
 	text-decoration: underline; 
 }
-
-label {
-	width: 9em;
-	display: inline-block;
-}
-
-header {
-  background-color:rgb(187, 223, 255);
-  color: white;
-  margin-bottom: 0.5em;
-  padding: 0.2em;
-}
-
-header a { 
-	text-decoration: none; 
-    color: white;
-    font-size: 1.6em;
-}
-header span{
-	text-decoration: none; 
-    color: darkgreen;
-    font-size: 1.4em;
-}
-img {
-	max-width: 100%;
-	height: auto;
-}
-
-.headerFlexContainer {
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.headerFlexContainer.right{
+.navbar {
+	background-color: #f1f1f1;
+	overflow: hidden;
 	display: flex;
-	float:right;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+}
+	
+	    .navbar img {
+	      max-width: 250px;
+	      height: auto;
+	      margin: 0 auto;
+	    }
+
+    .navbar .navbar-text {
+      margin-right: 20px;
+    }
+    
+.contenitore {
+  display: flex;
 }
 
-section{
-	background-color: forestgreen;
+.blocco {
+  flex-grow: 1;
+  padding: 20px;
 }
-.sectionFlexContainer{
-	display: inline;
+
+.blocco1 {
+  background-color: #f1f1f1;
 }
-.sectionFlexContainer.up{
-	display: flex;
-	height: 180px;
-	display: inline-flex;
-}
-.sectionFlexContainer.up.column{
-	background-color: aqua;
-	height: 180px;
-	width: 50;
+
+.blocco2 {
+  background-color: #eaeaea;
 }

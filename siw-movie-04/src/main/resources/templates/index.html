@@ -9,7 +9,7 @@
 	<body>
 		<header>
 			<div th:if="${#request.userPrincipal}">
-				<span th:text="${#request.userPrincipal.principal.username}"></span>
+				<span th:text="${#request.userPrincipal.principal.username}" style="font-size: 200%;"></span>
 				<a href="/logout">Logout</a>
 			</div>
 			<div th:unless="${#request.userPrincipal}">
