@@ -11,13 +11,15 @@ import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.ReviewRepository;
 import it.uniroma3.siw.repository.UserRepository;
 
 @Service
 public class UserService {
 
 	@Autowired private UserRepository userRepository;
-	@Autowired CredentialsService credentialsService;
+	@Autowired private CredentialsService credentialsService;
+	@Autowired private ReviewRepository reviewRepository;
 	
 
 	@Transactional
@@ -39,14 +41,9 @@ public class UserService {
 		return credentials.getUser();
 	}
 	
-	//FARE TRAMITE QUERY
 	public boolean multipleReviewOfMovieBySameUser(Movie movie){
 		User user=this.getCurrentUser();
-		for(Review userReview: user.getReviews()) {
-			if(userReview.getMovie()==movie)
-				return true;
-		}
-		return false;
+		return this.reviewRepository.existsByUserAndMovie(user, movie);
 	}
 	@Transactional
 	public void removeReviewAsscociationFromUser(Review review) {

@@ -16,4 +16,5 @@ public interface UserRepository extends CrudRepository<User,Long>{
 	 @Query(value = "UPDATE User SET suggested_movie_id = NULL")
 	 @Modifying
      int updateAllSuggestedMovieToNull();
+	 
 }
