@@ -4,29 +4,37 @@
 		<title>
 			Film
 		</title>
-		<link rel="stylesheet" th:href="@{bootstrap.min.css}" />
-		<script src="@{bootstrap.min.js}"></script>
+		<link rel="stylesheet" href="/css/mioStile.css" />
 
 	</head>
 	<body>
-	<nav  class="navbar" style="background-color: rgb(174, 174, 255);">
-	  <div class="container">
-	    <a class="navbar-brand" href="#">
-	      <img src="/images/logo-siw.png" alt="siw-movie" width="150" >
-	    </a>
+	
+	 <div class="flexbox-container">
+		<header class="header">
+		   <img src="/images/logo-siw.png" width="100%"/>
+		   <div class="text" th:if="${#request.userPrincipal}">
+				<span th:text="${#request.userPrincipal.principal.username}"></span>
+				<a href="/logout">Logout</a>
+			</div>
+			<div class="text" th:unless="${#request.userPrincipal}">
+				<a href="/login">Login</a>
+			</div>
+		</header>
+		 
+	    <div class="flexbox-item">
+			<h1>Film</h1>
+	        <a href="/movies"><img src="/images/video-player.png" width="30%"/></a>
+	    </div>
+	    <div class="flexbox-item">
+			<h1>Attori</h1>
+	        <a href="/artists"><img src="/images/actor.png" width="30%"/></a>
+	    </div>
+	    <div class="flexbox-item">
+			<h1>Film del momento</h1>
+	        <a href="/suggestedMovie"><img src="/images/trending.png" width="30%"/></a>
+	    </div>
+	    
+	     <div class="footer"></div>
 	  </div>
-	</nav>
-	<h1>Artisti</h1>
-	<div th:if="${artists.isEmpty() || artists==Null}">Non ci sono artisti nel sistema</div>
-	<ul>
-		<div class="list-group" th:each="artist : ${artists}">
-			<a class="list-group-item list-group-item-action" th:href="@{'/artists' + '/' + ${artist.id}}"
-				th:text="${artist.name} +' '+ ${artist.surname}">nome e cognome
-			</a>
-			
-		</div>
-	</ul>	
-	
-	
 	</body>
 </html>
