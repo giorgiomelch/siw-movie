@@ -2,31 +2,38 @@
 <html>
 	<head>
 		<title>Artisti</title>
-		<link rel="stylesheet" href="/css/stileGenerale.css" />
+		<link rel="stylesheet" href="/css/mioStile.css" />
 	</head>
-	<body>
-		<header>
-			<div th:if="${#request.userPrincipal}">
+<body>
+	<header class="header">
+		   <img src="/images/logo-siw.png" width="100%"/>
+		   <div class="text" th:if="${#request.userPrincipal}">
 				<span th:text="${#request.userPrincipal.principal.username}"></span>
 				<a href="/logout">Logout</a>
 			</div>
-			<div th:unless="${#request.userPrincipal}">
+			<div class="text" th:unless="${#request.userPrincipal}">
 				<a href="/login">Login</a>
 			</div>
-		</header>
-		<div>
-			<a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
+	</header>
+	
+	<div class="flexbox-container">
+		<div class="flexbox-item-solo">
+			<div class="scrollable-content">
+				<h1>Artisti</h1>
+				<div th:if="${artists.isEmpty() || artists==Null}">Non ci sono artisti nel sistema</div>
+				<li th:each="artist : ${artists}">
+					<div class="flex-container">
+						<a th:href="@{'/artists' + '/' + ${artist.id}}"
+							th:text="${artist.name} +' '+ ${artist.surname}">nome e cognome</a>
+					</div>
+				</li>
+			</div>
 		</div>
-		<h1>Artisti</h1>
-		<div th:if="${artists.isEmpty() || artists==Null}">Non ci sono artisti nel sistema</div>
-		<ul>
-			<li th:each="artist : ${artists}">
-				<div class="flex-container">
-					<a th:href="@{'/artists' + '/' + ${artist.id}}"
-						th:text="${artist.name} +' '+ ${artist.surname}">nome e cognome</a>
-				</div>
-			</li>
-		</ul>	
-		<footer></footer>
-	</body>
+		
+	</div>
+	<div class="imghome">
+		<a href="/"><img src="/images/home.png" width="20%"/></a>
+	</div>
+	<div class="footer"></div>
+</body>
 </html>

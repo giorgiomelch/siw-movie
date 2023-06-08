@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="/css/mioStile.css" />
 
 	</head>
-	<body>
+<body>
 	<header class="header">
 		   <img src="/images/logo-siw.png" width="100%"/>
 		   <div class="text" th:if="${#request.userPrincipal}">
@@ -18,32 +18,30 @@
 				<a href="/login">Login</a>
 			</div>
 	</header>
-	<div class="flexbox-container-2">
-			 
-	    <div class="flexbox-item-1">
-			<h1>Film</h1>
-	        <a href="/movies"><img src="/images/video-player.png" width="30%"/></a>
-	    </div>
-	    <div class="flexbox-item-1">
-			<h1>Attori</h1>
-	        <a href="/artists"><img src="/images/actor.png" width="30%"/></a>
-	    </div>
-	    <div class="flexbox-item-1">
-			<h1>Film del momento</h1>
-	        <a href="/suggestedMovie"><img src="/images/trending.png" width="30%"/></a>
-	    </div>
+	
+	<div class="flexbox-container">
+		<div class="flexbox-item-solo">
+			<div class="scrollable-content">
+				<h1>Film</h1>
+				<strong>Cerca film per anno</strong>
+				<form class="form" th:action="@{/searchMovies}" method="post">
+					<div>Anno: <input type="text" th:value="${year}" name="year" />
+					</div>
+					<div><input type="submit" /></div>
+				</form>
+				<div>.</div>
+				<div th:if="${movies.isEmpty()}">Non ci sono film nel sistema</div>
+				<li th:each="movie : ${movies}">
+					<a th:href="@{'/movies' + '/' + ${movie.id}}"
+						th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>
+				</li>
+			</div>
+		</div>
+		
 	</div>
-	 <div class="flexbox-container-3">
-		 
-	    <div class="flexbox-item-2"align-content: center>
-			<h1>Operazioni Film</h1>
-	        <a href="/admin/manageMovies"><img src="/images/video-camera.png" width="30%"/></a>
-	    </div>
-	    <div class="flexbox-item-2">
-			<h1>Operazioni Artisti</h1>
-	        <a href="/admin/manageArtist"><img src="/images/setting.png" width="30%"/></a>
-	    </div>
-	     <div class="footer"></div>
-	  </div>
-	</body>
+	<div class="imghome">
+		<a href="/"><img src="/images/home.png" width="20%"/></a>
+	</div>
+	<div class="footer"></div>
+</body>
 </html>
