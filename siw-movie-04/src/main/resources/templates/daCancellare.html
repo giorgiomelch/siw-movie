@@ -4,44 +4,64 @@
 		<title>
 			Film
 		</title>
-		<link rel="stylesheet" href="/css/mioStile.css" />
+		<link rel="stylesheet" href="/css/mioStile2.css" />
 
 	</head>
 <body>
-	<header class="header">
-		   <img src="/images/logo-siw.png" width="100%"/>
-		   <div class="text" th:if="${#request.userPrincipal}">
+	<div class="flexbox-container-vertical">
+        
+        <div class="header">
+			<img src="/images/logo-siw.png" width="70%"/>
+			<div class="text" th:if="${#request.userPrincipal}">
 				<span th:text="${#request.userPrincipal.principal.username}"></span>
 				<a href="/logout">Logout</a>
 			</div>
 			<div class="text" th:unless="${#request.userPrincipal}">
 				<a href="/login">Login</a>
 			</div>
-	</header>
-	
-	<div class="flexbox-container">
-		<div class="flexbox-item-solo">
-			<div class="scrollable-content">
-				<h1>Film</h1>
-				<strong>Cerca film per anno</strong>
-				<form class="form" th:action="@{/searchMovies}" method="post">
-					<div>Anno: <input type="text" th:value="${year}" name="year" />
-					</div>
-					<div><input type="submit" /></div>
-				</form>
-				<div>.</div>
-				<div th:if="${movies.isEmpty()}">Non ci sono film nel sistema</div>
-				<li th:each="movie : ${movies}">
-					<a th:href="@{'/movies' + '/' + ${movie.id}}"
-						th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>
-				</li>
-			</div>
 		</div>
+	
+		<div class="section">
+			<div class="flexbox-container-horizontal">
+				<div class="flex-item">
+					<div>
+						<h1>Scrivi recensione per: "<span th:text="${movie.title}"></span>"</h1>
+					</div>
+					<form th:action="@{'/createReviewToFilm' + '/' + ${movie.id}}" method="POST" th:object="${review}">
+						<fieldset>
+				    		<legend><strong>Nuova recensione:</strong></legend>
+							<div th:if="${#fields.hasGlobalErrors()}">
+								<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+							</div>
+							
+							<div>
+								<label for="title">Titolo:</label> <span><input required type="text" th:field="${review.title}" id="title"/></span>
+								<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+							</div>
+					
+							<div>
+								<label for="testo">Testo:</label>
+								 <span><textarea id="testo" name="testo" th:field="${review.text}" rows="4" cols="50"></textarea></span>
+								 
+								 <span th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
+							</div>
+							<div>
+								<label for="quantity">Recensione(max 5):</label>
+					  			<input type="number" value="1" th:field="${review.rating}" id="quantity" name="quantity" min="1" max="5" >
+					  			<span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
+							</div>
+							<div>
+								<span><button class="bottone" type="submit">Conferma</button></span>
+							</div>
+						</fieldset>
+					</form>	
+				</div>
+			</div>
+        </div>
+        <div class="footer">sd</div>
+	</div>
 		
-	</div>
-	<div class="imghome">
-		<a href="/"><img src="/images/home.png" width="20%"/></a>
-	</div>
-	<div class="footer"></div>
+		
+	
 </body>
 </html>

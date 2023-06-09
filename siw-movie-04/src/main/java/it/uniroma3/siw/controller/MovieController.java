@@ -35,11 +35,7 @@ public class MovieController {
 	@Autowired CredentialsService credentialsService;
 	@Autowired MovieValidator movieValidator;
 
-	@GetMapping("/daCancellare")
-	public String daCancellare(Model model) {
-		model.addAttribute("movies", this.movieService.findAllMovie());
-		return "daCancellare.html";
-	}
+	
 	
 	@GetMapping("/admin/indexMovie")
 	public String indexMovie() {
@@ -186,16 +182,7 @@ public class MovieController {
 		this.movieService.delete(idMovie);
 		model.addAttribute("movies", this.movieService.findAllMovie());
 		return "admin/manageMovies.html";
-	}
-	@GetMapping("/admin/formModifyMovie/{idMovie}")
-	public String formModifyMovie(@PathVariable("idMovie") Long idMovie, Model model) {
-		Movie movie=this.movieService.findMovieById(idMovie);
-		if(movie==null)
-			return "movieError.html";
-		model.addAttribute("movie", movie);
-		return "formModifyMovie.html";
-	}
-	
+	}	
 	
 	@Transactional
 	@GetMapping("/suggestMovie/{idMovie}")

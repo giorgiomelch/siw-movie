@@ -3,62 +3,70 @@
 <html>
   <head>
     <title>Artista</title>
-	<link rel="stylesheet" href="/css/stileArtista.css" />
+	<link rel="stylesheet" href="/css/mioStile1.css" />
 </head>
 
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-	<nav>
-		<a href="/"><img src="/images/home.png" width="3%" />Home</a>
-		   <a href="/artists"><img src="/images/iconaLista.png" width="3%" />Elenco artisti</a>
-	</nav>	
-
-	
-	<div th:if="${artist}">
-		<div class="column side">
-			<span><img width="100%" th:src=${artist.urlOfPicture} /></span>
-		</div>
-		
-		<div class="column">
-	      	<div>
-				<h1 th:text="${artist.name} +' '+ ${artist.surname}">nome e cognome</h1>
-				<span th:text="${artist.dateOfBirth}"></span>
+      <div class="flexbox-container-vertical">
+        
+        <div class="header">
+			<img src="/images/logo-siw.png" width="70%"/>
+			<div class="text" th:if="${#request.userPrincipal}">
+				<span th:text="${#request.userPrincipal.principal.username}"></span>
+				<a href="/logout">Logout</a>
 			</div>
+			<div class="text" th:unless="${#request.userPrincipal}">
+				<a href="/login">Login</a>
+			</div>
+		</div>
 		
+		<div class="nav">
+			<a href="/"><img src="/images/home.png" width="4%" />Home</a>
+		    <a href="/movies"><img src="/images/actor.png" width="4%" />Elenco artisti</a>
+		</div>
 		
-			<div>
-				<strong>Film diretti:</strong>
-				<div th:if="${artist.moviesDirected}">
-					<ul>
-						<li th:each="movie : ${artist.moviesDirected}">
-							<span th:text="${movie.title}"></span>
-						</li>
-					</ul>
-				</div>
-				<div th:unless="${artist.moviesDirected}">
-					<span>Nessun film diretto</span>
+        <div class="section">
+			<div class="flexbox-container-horizontal">
+				
+				<div class="flex-item-1">
+					<img th:src=${artist.urlOfPicture} />
 				</div>
 				
-				<div>
-					<strong>Film in cui ha interpretato un ruolo:</strong>
-					<ul>
-						<li th:each="movie : ${artist.moviesActed}">
-							<span th:text="${movie.title}"></span>
-						</li>
-					</ul>
+				<div class="flex-item-2">
+					<div  class="flexbox-item-scroll">
+						<div>
+							<h1 th:text="${artist.name} +' '+ ${artist.surname}">nome e cognome</h1>
+							<span th:text="${artist.dateOfBirth}"></span>
+						</div>
+						<div>
+							<strong>Film diretti:</strong>
+							<div th:if="${artist.moviesDirected}">
+								<ul>
+									<li th:each="movie : ${artist.moviesDirected}">
+										<span th:text="${movie.title}"></span>
+									</li>
+								</ul>
+							</div>
+							<div th:unless="${artist.moviesDirected}">
+								<span>Nessun film diretto</span>
+							</div>
+							
+							<div>
+								<strong>Film in cui ha interpretato un ruolo:</strong>
+								<ul>
+									<li th:each="movie : ${artist.moviesActed}">
+										<span th:text="${movie.title}"></span>
+									</li>
+								</ul>
+							</div>
+						</div>				    
+						 
+					</div>		
 				</div>
+				
 			</div>
-		</div>
-	   
-    </div>
-    <div th:unless="${artist}">Non esiste</div>
-  </body>
+        </div>
+        <div class="footer"></div>
+      </div>
+</body>
 </html>
