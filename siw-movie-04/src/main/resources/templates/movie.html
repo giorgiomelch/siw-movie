@@ -71,10 +71,15 @@
 								<ul>
 									<li th:each="review : ${movie.reviews}">
 										<div><span th:text="${review.user.name}+' '+${review.user.surname}"></span></div>
-										<div>Voto: <span th:text="${review.rating}"></span></div>
 										<div><strong th:text="${review.title}"></strong></div>
 										<div><span th:text="${review.text}"></span></div>
-										<div><a th:href="@{'/admin/formConfirmDeleteReview/'+${review.id}}">elimina recensione</a></div>
+										<div>Voto: <span th:text="${review.rating}"></span></div>
+										
+										<form th:action="@{'/admin/formConfirmDeleteReview/'+${review.id}}" method="GET">
+											<div>
+												<span><button type="submit">Elimina recensione</button></span>
+											</div>
+										</form>
 									</li>
 								</ul>						
 							</div>

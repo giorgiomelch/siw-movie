@@ -5,48 +5,59 @@
 	<title>
 		SiwMovie - Login
 	</title>
-	<link rel="stylesheet" href="/css/stileGenerale.css" />
-</head>
+	<link rel="stylesheet" href="/css/mioStile2.css" />
 
+	</head>
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
+	<div class="flexbox-container-vertical">
+        
+        <div class="header">
+			<img src="/images/logo-siw.png" width="70%"/>
+			<div class="text" th:if="${#request.userPrincipal}">
+				<span th:text="${#request.userPrincipal.principal.username}"></span>
+				<a href="/logout">Logout</a>
+			</div>
+			<div class="text" th:unless="${#request.userPrincipal}">
+				<a href="/login">Login</a>
+			</div>
 		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+	
+		<div class="section">
+			<div class="flexbox-container-horizontal-sa">
+				
+				<div class="flex-item-register">
+					
+					<h1>Login</h1>
+					<form th:action="@{/login}" method="POST">
+						<div>
+							<label>Username:</label>
+							<span><input name="username" type="text" required /></span>
+						</div>
+						<div>
+							<label>Password:</label>
+							<span><input name="password" type="password" required /></span>
+						</div>
+						<div>
+							<span th:if="${param.error != null}">Username o password errati</span>
+						</div>
+						<div>
+							<span><button type="submit">Login</button></span>
+						</div>
+					</form>
+				
+					<div>
+						<span>Non hai un account? </span>
+						<a th:href="@{/register}" th:text="Registrati">Registrati</a>
+					</div>
+				</div>
+				
+				
+			</div>
+        </div>
+        
+        <div class="footer"></div>
+	</div>
 
-	<div>
-		<a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
-	</div>
-	
-	<form th:action="@{/login}" method="POST">
-		<fieldset>
-			<legend><h1>Login</h1></legend>
-			<div>
-				<span>Username:</span>
-				<span><input name="username" type="text" required /></span>
-			</div>
-			<div>
-				<span>Password:</span>
-				<span><input name="password" type="password" required /></span>
-			</div>
-			<div>
-				<span th:if="${param.error != null}">Username o password errati</span>
-			</div>
-			<div>
-				<span><button type="submit">Login</button></span>
-			</div>
-		</fieldset>
-	</form>
-	
-	<div>
-		<span>Non hai un account? </span>
-		<a th:href="@{/register}" th:text="Registrati">Registrati</a>
-	</div>
 </body>
 
 </html>

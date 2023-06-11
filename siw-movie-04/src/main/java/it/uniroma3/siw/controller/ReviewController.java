@@ -28,13 +28,7 @@ public class ReviewController {
 	@Autowired UserService userService;
 	@Autowired OnlyOneReviewForUserValidator onlyOneReviewForUserValidator;
 	
-	@GetMapping("/daCancellare")
-	public String daCancellare(Model model) {
-		Movie movie= this.movieService.findMovieById(this.movieService.findMovieBySuggestedPoints().getId());
-		model.addAttribute("movie", movie);
-		model.addAttribute("review",new Review());
-		return "daCancellare.html";
-	}
+	
 	
 	@GetMapping("addReviewToMovie/{idMovie}")
 	public String createReviewToMovie(@PathVariable("idMovie") Long idMovie, Model model) {

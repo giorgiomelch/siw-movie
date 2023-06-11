@@ -15,7 +15,7 @@ import it.uniroma3.siw.service.CredentialsService;
  * che viene applicato su tutti gli altri controller*/
 @ControllerAdvice
 public class GlobalController {
-    @Autowired
+    /*@Autowired
     private CredentialsService credentialsService;
 
     @ModelAttribute("credentials")
@@ -26,5 +26,5 @@ public class GlobalController {
             return credentialsService.getCredentials(user.getUsername());
         }
         return null;
-    }
+    }*/
 }

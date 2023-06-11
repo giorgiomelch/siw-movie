@@ -24,11 +24,6 @@ public class ArtistController {
 	@Autowired ArtistValidator artistValidator;
 	@Autowired MovieService movieService;
 	
-	@GetMapping("/admin/indexArtist")
-	public String indexArtist() {
-		return "admin/indexArtist.html";
-	}
-	
 	@GetMapping("/artists/{id}")
 	public String getArtist(@PathVariable("id") Long id, Model model) {
 		Artist artist=this.artistService.findArtistById(id);

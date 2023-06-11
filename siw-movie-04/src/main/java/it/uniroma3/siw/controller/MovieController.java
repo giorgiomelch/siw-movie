@@ -35,12 +35,12 @@ public class MovieController {
 	@Autowired CredentialsService credentialsService;
 	@Autowired MovieValidator movieValidator;
 
-	
-	
-	@GetMapping("/admin/indexMovie")
-	public String indexMovie() {
-		return "admin/indexMovie.html";
+	@GetMapping("/daCancellare")
+	public String daCancellare(Model model) {
+		model.addAttribute("artists", this.artistService.findAllArtist());
+		return "daCancellare.html";
 	}
+	
 	@GetMapping(value="/admin/formNewMovie")
 	public String formNewMovie(Model model) {
 		model.addAttribute("movie", new Movie());
@@ -74,10 +74,6 @@ public class MovieController {
 	public String showMovies(Model model) {
 		model.addAttribute("movies", this.movieService.findAllMovie());
 		return "movies.html";
-	}
-	@GetMapping("/formSearchMovies")
-	public String formsearchMovies() {
-		return "formSearchMovies.html";
 	}
 	@PostMapping("/searchMovies")
 	public String searchMovies(Model model, @RequestParam Integer year) {
