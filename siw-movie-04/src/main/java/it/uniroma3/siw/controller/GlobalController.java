@@ -15,16 +15,27 @@ import it.uniroma3.siw.service.CredentialsService;
  * che viene applicato su tutti gli altri controller*/
 @ControllerAdvice
 public class GlobalController {
-    /*@Autowired
-    private CredentialsService credentialsService;
+@Autowired CredentialsService credentialsService;
+	
+	@ModelAttribute("userDetails")
+	public UserDetails getUser() {
+		UserDetails user = null;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		}
+		return user;
+	}
 
-    @ModelAttribute("credentials")
+	@ModelAttribute("credenziali")
     public Credentials getCredentials() {
+    	Credentials credentials = null;
+    	UserDetails user = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return credentialsService.getCredentials(user.getUsername());
+            user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            credentials = this.credentialsService.getCredentials(user.getUsername());
         }
-        return null;
-    }*/
+        return credentials;
+	}
 }
