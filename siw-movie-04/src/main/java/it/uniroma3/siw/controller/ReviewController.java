@@ -58,18 +58,30 @@ public class ReviewController {
 			return "reviewToAddToMovie.html";
 		}
 	}
-	@GetMapping("admin/formConfirmDeleteReview/{idReview}")
+	@GetMapping("formConfirmDeleteReview/{idReview}")
 	public String formConfirmDeleteReview(@PathVariable ("idReview") Long idReview, Model model) {
 		Review review=this.reviewService.findReviewById(idReview);
 		if(review==null)
 			return "reviewError.html";
 		model.addAttribute("review", review);
-		return "admin/formConfirmDeleteReview.html";
+		return "formConfirmDeleteReview.html";
 	}
 	@GetMapping("/admin/deleteReview/{idReview}")
 	public String deleteReview(@PathVariable ("idReview") Long idReview, Model model) {
 		Review review=this.reviewService.findReviewById(idReview);
 		if(review==null)
+			return "reviewError.html";
+		Movie movie=review.getMovie();
+		this.movieService.removeReviewAssociationFromMovie(review);
+		this.userService.removeReviewAsscociationFromUser(review);
+		this.reviewService.delete(idReview);
+		model.addAttribute("movie",movie);
+		return "movie.html";
+	}
+	@GetMapping("/deleteReviewRegistered/{idReview}")
+	public String deleteReviewRegistered(@PathVariable ("idReview") Long idReview, Model model) {
+		Review review=this.reviewService.findReviewById(idReview);
+		if(review==null || !review.getUser().equals(userService.getCurrentUser()))
 			return "reviewError.html";
 		Movie movie=review.getMovie();
 		this.movieService.removeReviewAssociationFromMovie(review);

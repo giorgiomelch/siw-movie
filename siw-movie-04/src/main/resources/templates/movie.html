@@ -75,12 +75,20 @@
 										<div><span th:text="${review.text}"></span></div>
 										<div>Voto: <span th:text="${review.rating}"></span></div>
 										<div>
-											<a th:if="${credenziali!=null && credenziali.isAdmin()}">
-												<form th:action="@{'/admin/formConfirmDeleteReview/'+${review.id}}" method="GET">
+											<a th:if="${credenziali.getUser()==review.user}">
+												<form th:action="@{'/formConfirmDeleteReview/'+${review.id}}" method="GET">
 												<span><button type="submit">Elimina recensione</button></span>
 												</form>
 											</a>
+											<div th:unless="${credenziali.getUser()==review.user}">
+												<a th:if="${credenziali!=null && credenziali.isAdmin()}">
+													<form th:action="@{'/formConfirmDeleteReview/'+${review.id}}" method="GET">
+													<span><button type="submit">Elimina recensione</button></span>
+												</form>
+												</a>
+											</div>
 										</div>
+										
 									</li>
 								</ul>						
 							</div>

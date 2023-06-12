@@ -26,12 +26,20 @@
 		<div><span th:text="${review.title} + ' voto: ' + ${review.rating}"></span></div>
 		<div><span th:text="${review.text}"></span></div>
 	</div>
-	
-	<form th:action="@{'/admin/deleteReview/' + ${review.id}}" method="GET" >
-		<div>
-			<span><button type="submit">Conferma</button></span>
-		</div>
-	</form>	
+	<div th:if="${credenziali!=null && credenziali.isAdmin()}">
+		<form th:action="@{'/admin/deleteReview/' + ${review.id}}" method="GET" >
+			<div>
+				<span><button type="submit">Conferma</button></span>
+			</div>
+		</form>	
+	</div>
+	<div th:unless="${credenziali!=null && credenziali.isAdmin()}">
+		<form th:action="@{'/deleteReviewRegistered/' + ${review.id}}" method="GET" >
+			<div>
+				<span><button type="submit">Conferma</button></span>
+			</div>
+		</form>	
+	</div>
 	
 </body>
 
