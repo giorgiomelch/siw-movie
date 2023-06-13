@@ -59,17 +59,7 @@ public class ArtistController {
 		model.addAttribute("artists", this.artistService.findAllArtist());
 		return "admin/manageArtist.html";
 	}
-	@GetMapping("/admin/formUpdateArtist/{idArtist}")
-	public String formUpdateArtist(@PathVariable ("idArtist") Long idArtist, Model model) {
-		Artist artist= this.artistService.findArtistById(idArtist);
-		if(artist!=null) {
-			model.addAttribute("artist",artist);
-		}
-		else {
-			return "artistError.html";
-		}
-		return "/admin/formUpdateArtist.html";
-	}
+	
 	@GetMapping("/admin/formConfirmDeleteArtist/{idArtist}")
 	public String formConfirmDeleteArtist(@PathVariable ("idArtist") Long idArtist, Model model) {
 		Artist artist=this.artistService.findArtistById(idArtist);

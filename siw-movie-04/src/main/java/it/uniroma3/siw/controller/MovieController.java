@@ -37,7 +37,8 @@ public class MovieController {
 
 	@GetMapping("/daCancellare")
 	public String daCancellare(Model model) {
-		model.addAttribute("artists", this.artistService.findAllArtist());
+		model.addAttribute("movie", this.movieService.findMovieBySuggestedPoints());
+		model.addAttribute("actor",this.artistService.findAllArtist());
 		return "daCancellare.html";
 	}
 	

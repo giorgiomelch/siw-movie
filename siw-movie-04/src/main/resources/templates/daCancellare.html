@@ -24,37 +24,26 @@
 		<div class="section">
 			<div class="flexbox-container-horizontal-sa">
 				
-				<div class="flex-item-register">
-					<img src="/images/tv.png" width="70%"/>
-					<h1>Login</h1>
-					<form th:action="@{/login}" method="POST">
-						<h1>Login</h1>
-						<div>
-							<span>Username:</span>
-							<span><input name="username" type="text" required /></span>
-						</div>
-						<div>
-							<span>Password:</span>
-							<span><input name="password" type="password" required /></span>
-						</div>
-						<div>
-							<span th:if="${param.error != null}">Username o password errati</span>
-						</div>
-						<div>
-							<span><button type="submit">Login</button></span>
-						</div>
-					</form>
-				
-				<div>
-					<span>Non hai un account? </span>
-					<a th:href="@{/register}" th:text="Registrati">Registrati</a>
+				<div class="flexbox-item-solo">
+					<div class="scrollable-content">
+						<h1>Sicuro di voler cancellare:</h1>
+						<h3 th:text="${movie.title}">Titolo Film</h3>
+				        <div>Anno: <span th:text="'(' + ${movie.year} + ')'">anno in cifre</span></div>
+				        <div class="flex-item-2"><img th:src="${movie.urlImage}" width="20%"></div>
+				        <form th:action="@{'/admin/deleteMovie/' + ${movie.id}}" method="GET" >
+							 <div>
+								<span><button class="button-red" type="submit">elimina film</button></span>
+							</div>
+						</form>
+					</div>
 				</div>
-				</div>
-				
+					
 				
 			</div>
         </div>
-        
+        <div class="imghome">
+			<a href="/"><img src="/images/home.png" width="20%"/></a>
+		</div>
         <div class="footer"></div>
 	</div>
 
