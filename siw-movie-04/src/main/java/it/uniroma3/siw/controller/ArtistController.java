@@ -24,13 +24,13 @@ public class ArtistController {
 	@Autowired ArtistValidator artistValidator;
 	@Autowired MovieService movieService;
 	
-	@GetMapping("/artists/{id}")
+	@GetMapping("/generic/artists/{id}")
 	public String getArtist(@PathVariable("id") Long id, Model model) {
 		Artist artist=this.artistService.findArtistById(id);
 		if(artist==null)
 			return "artistError.html";
 		model.addAttribute("artist" , artist);
-		return "artist.html";
+		return "generic/artist.html";
 	}
 	@GetMapping("/admin/formNewArtist")
 	public String formNewArtist(Model model) {
@@ -43,16 +43,16 @@ public class ArtistController {
 		if(!bindingResult.hasErrors()) {
 			this.artistService.saveArtist(artist);
 			model.addAttribute("artist", artist);
-			return "artist.html";
+			return "generic/artist.html";
 		}
 		else {
 			return "admin/formNewArtist.html";
 		}
 	}
-	@GetMapping("/artists")
+	@GetMapping("/generic/artists")
 	public String showArtists(Model model) {
 		model.addAttribute("artists", this.artistService.findAllArtist());
-		return "artists.html";
+		return "generic/artists.html";
 	}
 	@GetMapping("/admin/manageArtist")
 	public String managaArtist(Model model) {
@@ -64,7 +64,7 @@ public class ArtistController {
 	public String formConfirmDeleteArtist(@PathVariable ("idArtist") Long idArtist, Model model) {
 		Artist artist=this.artistService.findArtistById(idArtist);
 		if(artist==null)
-			return "artistError.html";
+			return "generic/artistError.html";
 		model.addAttribute("artist", artist);
 		return "/admin/formConfirmDeleteArtist.html";
 	}
@@ -73,7 +73,7 @@ public class ArtistController {
 	public String deleteArtist(@PathVariable ("idArtist") Long idArtist, Model model) {
 		Artist artist=this.artistService.findArtistById(idArtist);
 		if(artist==null)
-			return "artistError.html";
+			return "generic/artistError.html";
 		else {
 			this.movieService.removeArtistAssociationFromAllMovie(idArtist); //problema
 			this.artistService.removeMovieAssociationFromActor(idArtist);

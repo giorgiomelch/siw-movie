@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<title>Film</title>
-	<link rel="stylesheet" href="/css/mioStile.css" />
-</head>
-
+	<head>
+		<title>Artisti</title>
+		<link rel="stylesheet" href="/css/mioStile.css" />
+	</head>
 <body>
 	<header class="header">
 		   <img src="/images/logo-siw.png" width="100%"/>
@@ -21,18 +19,13 @@
 	<div class="flexbox-container">
 		<div class="flexbox-item-solo">
 			<div class="scrollable-content">
-				<h1>Film</h1>
-				<strong>Cerca film per anno</strong>
-				<form th:action="@{/searchMovies}" method="post">
-					<div>Anno: <input type="text" th:value="${year}" name="year" size="5" />
+				<h1>Artisti</h1>
+				<div th:if="${artists.isEmpty() || artists==Null}">Non ci sono artisti nel sistema</div>
+				<li th:each="artist : ${artists}">
+					<div class="flex-container">
+						<a th:href="@{'/generic/artists' + '/' + ${artist.id}}"
+							th:text="${artist.name} +' '+ ${artist.surname}">nome e cognome</a>
 					</div>
-					<div><input type="submit" /></div>
-				</form>
-				<div>.</div>
-				<div th:if="${movies.isEmpty()}">Non ci sono film nel sistema</div>
-				<li th:each="movie : ${movies}">
-					<a th:href="@{'/movies' + '/' + ${movie.id}}"
-						th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>
 				</li>
 			</div>
 		</div>
@@ -43,5 +36,4 @@
 	</div>
 	<div class="footer"></div>
 </body>
-
 </html>

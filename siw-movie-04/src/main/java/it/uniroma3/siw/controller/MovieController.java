@@ -61,25 +61,25 @@ public class MovieController {
 		}
 	}
 
-	@GetMapping("/movies/{id}")
+	@GetMapping("/generic/movies/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
 		Movie movie=this.movieService.findMovieById(id);
 		if(movie==null)
 			return "movieError.html";
 		else {
 			model.addAttribute("movie", movie);
-			return "movie.html";
+			return "generic/movie.html";
 		}
 	}
-	@GetMapping("/movies")
+	@GetMapping("/generic/movies")
 	public String showMovies(Model model) {
 		model.addAttribute("movies", this.movieService.findAllMovie());
-		return "movies.html";
+		return "generic/movies.html";
 	}
-	@PostMapping("/searchMovies")
+	@PostMapping("/generic/searchMovies")
 	public String searchMovies(Model model, @RequestParam Integer year) {
 		model.addAttribute("movies", this.movieService.findByYear(year));
-		return "movies.html";
+		return "generic/movies.html";
 	}
 	
 	@GetMapping("/admin/manageMovies")
@@ -182,7 +182,7 @@ public class MovieController {
 	}	
 	
 	@Transactional
-	@GetMapping("/suggestMovie/{idMovie}")
+	@GetMapping("/registered/suggestMovie/{idMovie}")
 	public String increaseSuggestedPoints(@PathVariable("idMovie") Long idMovie, Model model) {
 		Movie movie=this.movieService.findMovieById(idMovie);
 		
@@ -198,14 +198,14 @@ public class MovieController {
 		this.userService.setSuggestedMovie(user, movie);
 		
 		model.addAttribute("movie", movie);
-		return "movie.html";
+		return "generic/movie.html";
 	}
 	
-	@GetMapping("/suggestedMovie")
-	public String suggestMovie(Model model) {
+	@GetMapping("/generic/suggestedMovie")
+	public String getSuggestedMovie(Model model) {
 		Movie movie= this.movieService.findMovieBySuggestedPoints();
 		model.addAttribute("movie", movie);
-		return "suggestedMovie.html";
+		return "generic/suggestedMovie.html";
 	}
 
 	

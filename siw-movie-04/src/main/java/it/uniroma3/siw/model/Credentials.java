@@ -13,6 +13,7 @@ public class Credentials {
 
 	public static final String DEFAULT_ROLE = "DEFAULT";
 	public static final String ADMIN_ROLE = "ADMIN";
+	public static final String REGISTERED_ROLE = "REGISTERED";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,5 +66,8 @@ public class Credentials {
 	}
 	public boolean isAdmin(){
 		return role.equals(ADMIN_ROLE);
+	}
+	public boolean isRegistered(){
+		return role.equals(REGISTERED_ROLE);
 	}
 }

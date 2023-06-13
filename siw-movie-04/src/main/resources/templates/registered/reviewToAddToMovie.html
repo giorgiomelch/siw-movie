@@ -27,7 +27,7 @@
 					<div>
 						<h1>Scrivi recensione per: "<span th:text="${movie.title}"></span>"</h1>
 					</div>
-					<form th:action="@{'/createReviewToFilm' + '/' + ${movie.id}}" method="POST" th:object="${review}">
+					<form th:action="@{'/registered/createReviewToFilm' + '/' + ${movie.id}}" method="POST" th:object="${review}">
 						<fieldset>
 				    		<legend><strong>Nuova recensione:</strong></legend>
 							<div th:if="${#fields.hasGlobalErrors()}">

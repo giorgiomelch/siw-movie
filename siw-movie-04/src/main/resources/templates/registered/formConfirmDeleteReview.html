@@ -34,7 +34,7 @@
 		</form>	
 	</div>
 	<div th:unless="${credenziali!=null && credenziali.isAdmin()}">
-		<form th:action="@{'/deleteReviewRegistered/' + ${review.id}}" method="GET" >
+		<form th:action="@{'/registered/deleteReviewRegistered/' + ${review.id}}" method="GET" >
 			<div>
 				<span><button type="submit">Conferma</button></span>
 			</div>

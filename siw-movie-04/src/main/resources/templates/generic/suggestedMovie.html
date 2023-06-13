@@ -36,7 +36,7 @@
 				<div class="flex-item-2">
 					<div  class="flexbox-item-scroll">
 						<h1 th:text="${movie.title}+'(' + ${movie.year} + ')'"></h1>
-						 <form th:action="@{'/suggestMovie' + '/' + ${movie.id}}" method="GET">
+						 <form th:action="@{'/registered/suggestMovie' + '/' + ${movie.id}}" method="GET">
 							 <div>
 								<span><button type="submit">Suggerisci film</button></span>
 							</div>
@@ -61,7 +61,7 @@
 					<div class="flexbox-item-scroll">
 						<div class="text" th:if="${movie.reviews}">
 				   			 <h2>Recensioni
-				   			 <form th:action="@{'/addReviewToMovie' + '/' + ${movie.id}}" method="GET" th:object="${movie}">
+				   			 <form th:action="@{'/registered/addReviewToMovie' + '/' + ${movie.id}}" method="GET" th:object="${movie}">
 									<span><button type="submit" >Aggiungi recensione</button></span>
 				   			 </form>
 				   			 </h2>
