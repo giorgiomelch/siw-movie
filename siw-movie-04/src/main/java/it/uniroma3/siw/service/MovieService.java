@@ -6,7 +6,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.model.Review;
@@ -18,12 +17,12 @@ public class MovieService {
 
 	@Autowired private MovieRepository movieRepository;
 	@Autowired private ArtistRepository artistRepository;
-	
+
 	@Transactional
 	public void createNewMovie(Movie movie) {
 		this.movieRepository.save(movie);
 	}
-	
+
 	public Movie findMovieById(Long id) {
 		return this.movieRepository.findById(id).orElse(null);
 	}
@@ -61,7 +60,7 @@ public class MovieService {
 			actor.getMoviesActed().add(movie);
 			this.artistRepository.save(actor);
 			return this.saveMovie(movie);
-			}
+		}
 		return movie;
 	}
 
@@ -77,7 +76,7 @@ public class MovieService {
 		}
 		return movie;
 	}
-	
+
 	public Movie findMovieBySuggestedPoints() {
 		return this.movieRepository.findBySuggestedPoints(this.movieRepository.getMaxSuggestedPoints()).get(0);
 	}
@@ -86,7 +85,7 @@ public class MovieService {
 		movie.getReviews().add(review);
 		this.saveMovie(movie);
 	}
-	
+
 	public void increaseSuggestedPoint(Long idMovie) {
 		Movie movie=this.findMovieById(idMovie);
 		movie.increaseSuggestedPoints();
@@ -97,7 +96,7 @@ public class MovieService {
 		movie.decreaseSuggestedPoints();
 		this.saveMovie(movie);
 	}
-	
+
 	public boolean alreadyExists(Movie movie) {
 		return movie.getTitle()!=null && movie.getYear()!=null
 				&& movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear());
@@ -135,6 +134,14 @@ public class MovieService {
 	@Transactional 
 	public void resetAllToZeroSuggestedPoints() {
 		this.movieRepository.updateAllSuggestedPointsToZero(0);
+	}
+
+	public Movie update(Long idMovie, Movie newMovie) {
+		Movie movie = this.movieRepository.findById(idMovie).get();
+		movie.setTitle(newMovie.getTitle());
+		movie.setYear(newMovie.getYear());
+		this.movieRepository.save(movie);
+		return movie;
 	}
 
 }

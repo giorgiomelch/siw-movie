@@ -47,7 +47,7 @@
 							</div>
 							<div>
 								<label for="quantity">Voto(max 5):</label>
-					  			<input type="number" value="1" th:field="${review.rating}" id="quantity" name="quantity" min="1" max="5" >
+					  			<input type="number" th:field="${review.rating}" id="quantity" name="quantity" min="1" max="5" >
 					  			<span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
 							</div>
 							<div>
@@ -56,7 +56,7 @@
 						</fieldset>
 					</form>	
 					<div>
-						<a href="/"><img src="/images/home.png" width="4%" />Home</a>
+						<a th:href="@{'/generic/movies' + '/' + ${movie.id}}"><img src="/images/video-player.png" width="4%" />Annulla</a>
 					</div>
 				</div>
 			</div>

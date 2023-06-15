@@ -36,7 +36,12 @@
 						</div>
 						<div th:unless="${movie.director}">Nessun direttore associato al film</div>
 				        <div class="flex-item-2"><img th:src="${movie.urlImage}" width="20%"></div>
-				        <form th:action="@{'/admin/formConfirmDeleteFilm'+'/'+ ${movie.id}}" method="GET">
+				        <form th:action="@{'/admin/formUpdateMovieData'+'/'+ ${movie.id}}" method="GET">
+							 <div>
+								<span><button class="button-orange" type="submit">modifica film</button></span>
+							</div>
+						</form>
+						<form th:action="@{'/admin/formConfirmDeleteFilm'+'/'+ ${movie.id}}" method="GET">
 							 <div>
 								<span><button class="button-red" type="submit">elimina film</button></span>
 							</div>

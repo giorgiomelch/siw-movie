@@ -54,32 +54,11 @@ public class MovieController {
 		if(!bindingResult.hasErrors()) {
 			this.movieService.saveMovie(movie);
 			model.addAttribute("movie", movie);
-			return "movie.html";
+			return "generic/movie.html";
 		}
 		else {
 			return "admin/formNewMovie.html";
 		}
-	}
-
-	@GetMapping("/generic/movies/{id}")
-	public String getMovie(@PathVariable("id") Long id, Model model) {
-		Movie movie=this.movieService.findMovieById(id);
-		if(movie==null)
-			return "movieError.html";
-		else {
-			model.addAttribute("movie", movie);
-			return "generic/movie.html";
-		}
-	}
-	@GetMapping("/generic/movies")
-	public String showMovies(Model model) {
-		model.addAttribute("movies", this.movieService.findAllMovie());
-		return "generic/movies.html";
-	}
-	@PostMapping("/generic/searchMovies")
-	public String searchMovies(Model model, @RequestParam Integer year) {
-		model.addAttribute("movies", this.movieService.findByYear(year));
-		return "generic/movies.html";
 	}
 	
 	@GetMapping("/admin/manageMovies")
@@ -105,7 +84,7 @@ public class MovieController {
 		model.addAttribute("directors",this.artistService.findAllArtist());
 		Movie movie= this.movieService.findMovieById(id);
 		if(movie == null)
-			return "movieError.html";
+			return "generic/movieError.html";
 		model.addAttribute("movie",movie);
 		return "/admin/directorToAdd.html";
 	}
@@ -119,14 +98,14 @@ public class MovieController {
 			return "/admin/formUpdateMovie.html";
 		}
 		else
-			return "movieError.html";
+			return "generic/movieError.html";
 		}
 	@Transactional
 	@GetMapping("/admin/updateActorsOfMovie/{idMovie}")
 	public String updateActorsOfMovie(@PathVariable("idMovie") Long idMovie, Model model) {
 		Movie movie=this.movieService.findMovieById(idMovie);
 		if(movie==null)
-			return "movieError.html";
+			return "generic/movieError.html";
 		model.addAttribute("movie", movie);
 		model.addAttribute("actorsOfMovie", this.artistService.findAllArtistByMoviesActedIsContaining(movie));
 		model.addAttribute("notActorsOfMovie", this.artistService.findAllArtistByMoviesActedIsNotContaining(movie));
@@ -137,7 +116,7 @@ public class MovieController {
 	public String addActorToMovie(@PathVariable("idActor") Long idActor, @PathVariable("idMovie") Long idMovie, Model model) {
 		Movie movie=this.movieService.addActorToMovie(idMovie,idActor);
 		if(movie==null)
-			return "movieError.html";
+			return "generic/movieError.html";
 		model.addAttribute("movie", movie);
 		model.addAttribute("actorsOfMovie", this.artistService.findAllArtistByMoviesActedIsContaining(movie));
 		model.addAttribute("notActorsOfMovie", this.artistService.findAllArtistByMoviesActedIsNotContaining(movie));
@@ -149,7 +128,7 @@ public class MovieController {
 	public String removeActorFromMovie(@PathVariable("idActor") Long idActor, @PathVariable("idMovie") Long idMovie, Model model) {
 		Movie movie=this.movieService.removeActorFromMovie(idMovie, idActor);
 		if(movie==null) {
-			return "movieError.html";
+			return "generic/movieError.html";
 		}
 		model.addAttribute("movie", movie);
 		model.addAttribute("actorsOfMovie", this.artistService.findAllArtistByMoviesActedIsContaining(movie));
@@ -161,7 +140,7 @@ public class MovieController {
 	public String formConfirmDeleteFilm(@PathVariable("idMovie") Long idMovie, Model model) {
 		Movie movie=this.movieService.findMovieById(idMovie);
 		if(movie==null)
-			return "movieError.html";
+			return "generic/movieError.html";
 		else {
 			model.addAttribute("movie", movie);
 			return "admin/formConfirmDeleteFilm.html";
@@ -172,7 +151,7 @@ public class MovieController {
 	public String deleteMovie(@PathVariable("idMovie") Long idMovie, Model model) {
 		Movie movie=this.movieService.findMovieById(idMovie);
 		if(movie==null)
-			return "movieError.html";
+			return "generic/movieError.html";
 		this.artistService.removeMovieAssociationFromAllActor(movie);
 		this.movieService.removeActorAssociationFromAllMovie(idMovie);
 		this.reviewService.removeMovieAssociationFromReview(movie);
@@ -180,6 +159,29 @@ public class MovieController {
 		model.addAttribute("movies", this.movieService.findAllMovie());
 		return "admin/manageMovies.html";
 	}	
+	
+	@GetMapping("/admin/formUpdateMovieData/{idMovie}")
+	public String formUpdateMovieData(@PathVariable("idMovie") Long idMovie, Model model) {
+		Movie movie=this.movieService.findMovieById(idMovie);
+		if(movie==null)
+			return "generic/movieError.html";
+		model.addAttribute("movie",movie);
+		return "admin/formUpdateMovieData.html";
+	}
+	@PostMapping("/admin/updateMovieData/{idMovie}")
+		public String updateMovieData(@PathVariable("idMovie") Long idMovie, 
+				@Valid @ModelAttribute("movie") Movie newMovie, BindingResult bindingResult, Model model) {
+		this.movieValidator.validate(newMovie, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			model.addAttribute("movie", this.movieService.update(idMovie, newMovie));
+			return "/admin/formUpdateMovie.html";
+		}
+		else {
+			model.addAttribute("movie", this.movieService.findMovieById(idMovie));
+		}
+			return "/admin/formUpdateMovieData.html";
+		}
+	
 	
 	@Transactional
 	@GetMapping("/registered/suggestMovie/{idMovie}")
@@ -208,6 +210,26 @@ public class MovieController {
 		return "generic/suggestedMovie.html";
 	}
 
+	@GetMapping("/generic/movies/{id}")
+	public String getMovie(@PathVariable("id") Long id, Model model) {
+		Movie movie=this.movieService.findMovieById(id);
+		if(movie==null)
+			return "generic/movieError.html";
+		else {
+			model.addAttribute("movie", movie);
+			return "generic/movie.html";
+		}
+	}
+	@GetMapping("/generic/movies")
+	public String showMovies(Model model) {
+		model.addAttribute("movies", this.movieService.findAllMovie());
+		return "generic/movies.html";
+	}
+	@PostMapping("/generic/searchMovies")
+	public String searchMovies(Model model, @RequestParam Integer year) {
+		model.addAttribute("movies", this.movieService.findByYear(year));
+		return "generic/movies.html";
+	}
 	
 
 }
