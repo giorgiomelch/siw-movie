@@ -3,7 +3,7 @@
 
 <head>
 	<title>
-		New Artist
+		Update artist data
 	</title>
 	<link rel="stylesheet" href="/css/stileGenerale.css" />
 </head>
@@ -20,31 +20,34 @@
 	</header>
 	
 	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	<h1>Aggiungi un Artista</h1>
-	<form th:action="@{/admin/artist}" method="POST" th:object="${artist}" enctype="multipart/form-data">
+	<h1>Modifica artista</h1>
+	<form th:action="@{/admin/updateArtistData/{id}(id=${artist.id})}" method="POST" th:object="${artist}" enctype="multipart/form-data">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 		</div>
 		
 		<div>
-			<label for="name">Nome:</label> 
-			<span><input required type="text" th:field="${artist.name}" id="name"/></span>
+			<label for="titolo">Nome:</label> 
+			<span><input required type="text" th:field="${artist.name}" id="titolo"/></span>
 			<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 		</div>
 
 		<div>
-			<label for="surname">Cognome:</label> 
-			<span><input required type="text" th:field="${artist.surname}" id="surname"/></span>
+			<label for="anno">Surname:</label> 
+			<span><input required type="text" th:field="${artist.surname}" id="anno"/></span>
 			<span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
 		</div>
+		
 		<div>
 			<label>Data di nascita: </label>
 			<span><input type="date" th:field="${artist.dateOfBirth}" /></span>
 			<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
 		</div>
+
 		<div>
         	<input type="file" th:name="image" accept="/image*">
         </div>
+        
 		<div>
 			<span><button type="submit">Conferma</button></span>
 		</div>

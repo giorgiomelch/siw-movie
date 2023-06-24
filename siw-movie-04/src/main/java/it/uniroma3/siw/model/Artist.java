@@ -32,11 +32,8 @@ public class Artist {
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
-
 	@Column(length=10000000)
 	private String imageString;
-	
-	private String urlOfPicture;
 	@ManyToMany
 	private List<Movie> moviesActed;
 	@OneToMany(mappedBy= "director")
@@ -98,14 +95,6 @@ public class Artist {
 	}
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
-	}
-	
-	public String getUrlOfPicture() {
-		return urlOfPicture;
-	}
-
-	public void setUrlOfPicture(String urlOfPicture) {
-		this.urlOfPicture = urlOfPicture;
 	}
 
 	public List<Movie> getMoviesActed() {

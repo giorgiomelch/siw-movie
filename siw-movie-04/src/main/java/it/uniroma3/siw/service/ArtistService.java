@@ -72,4 +72,19 @@ public class ArtistService {
 			this.saveArtist(artist);
 			} catch(IOException e) {}
 	}
+
+	public Artist update(Long idArtist, Artist newArtist, MultipartFile image) {
+		Artist artist= this.artistRepository.findById(idArtist).get();
+		artist.setName(newArtist.getName());
+		artist.setSurname(newArtist.getSurname());
+		artist.setDateOfBirth(newArtist.getDateOfBirth());
+		if(!image.isEmpty()) {
+			try {
+				String base64Image = Base64.getEncoder().encodeToString(image.getBytes());
+				artist.setImageString(base64Image);
+				} catch(IOException e) {}
+		}
+		this.artistRepository.save(artist);
+		return artist;
+	}
 }

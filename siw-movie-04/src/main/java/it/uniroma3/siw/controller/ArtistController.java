@@ -51,6 +51,35 @@ public class ArtistController {
 			return "admin/formNewArtist.html";
 		}
 	}
+	@GetMapping("/admin/formUpdateArtist/{idArtist}")
+	public String formUpdateArtist(@PathVariable("idArtist") Long idArtist, Model model) {
+		Artist artist=this.artistService.findArtistById(idArtist);
+		if(artist==null)
+			return "generic/artistError.html";
+		model.addAttribute("artist",artist);
+		return "admin/formUpdateArtist.html";
+	}
+	@GetMapping("/admin/formUpdateArtistData/{idArtist}")
+	public String formUpdateArtistData(@PathVariable("idArtist") Long idArtist, Model model) {
+		Artist artist=this.artistService.findArtistById(idArtist);
+		if(artist==null)
+			return "generic/artistError.html";
+		model.addAttribute("artist",artist);
+		return "admin/formUpdateArtistData.html";
+	}
+	@PostMapping("/admin/updateArtistData/{idArtist}")
+	public String updateArtistData(@PathVariable("idArtist") Long idArtist, 
+			@Valid @ModelAttribute("artist") Artist newArtist, BindingResult bindingResult,
+			MultipartFile image, Model model) {
+		this.artistValidator.validate(newArtist, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			model.addAttribute("artist", this.artistService.update(idArtist, newArtist, image));
+			return "admin/formUpdateArtist.html";
+		}
+		else {
+			return "admin/formUpdateArtistData.html";
+		}
+	}
 	@GetMapping("/generic/artists")
 	public String showArtists(Model model) {
 		model.addAttribute("artists", this.artistService.findAllArtist());

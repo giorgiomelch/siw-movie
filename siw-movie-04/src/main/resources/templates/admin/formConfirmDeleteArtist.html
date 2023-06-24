@@ -27,8 +27,8 @@
 					<div class="flexbox-item-solo">
 						<div class="scrollable-content">
 							<h1>Sicuro di voler cancellare:</h1>
-							<h3 th:text="${artist.name} + ${artist.surname} + ' (' + ${artist.dateOfBirth} + ')'"></h3>
-					        <div class="flex-item-2"><img th:src="${artist.urlOfPicture}" width="20%"></div>
+							<h3 th:text="${artist.name} +' '+ ${artist.surname} + ' (' + ${artist.dateOfBirth} + ')'"></h3>
+					        <div class="flex-item-2"><img th:src="@{'data:image;base64,' + ${artist.imageString}}" width="20%"></div>
 					        <div class="flexbox-container-horizontal-sa">
 								<form th:action="@{'/admin/deleteArtist/' + ${artist.id}}" method="GET" >
 									 <div>
