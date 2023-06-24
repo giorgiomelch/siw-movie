@@ -29,7 +29,7 @@
 			<div class="flexbox-container-horizontal">
 				
 				<div class="flex-item-1">
-					<img th:src=${movie.urlImage} />
+					 <img th:src="@{'data:image;base64,' + ${movie.imageString}}">
 				</div>
 				
 				<div class="flex-item-2">

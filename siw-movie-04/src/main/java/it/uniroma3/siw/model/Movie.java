@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,10 @@ public class Movie {
 	@Max(2023)
 	private Integer year;
 	private String urlImage;
+	
+	@Column(length=10000000)
+	private String imageString;
+	
 	@OneToMany(mappedBy = "movie")
 	private List<Review> reviews;
 	@ManyToMany(mappedBy= "moviesActed")
@@ -38,6 +43,16 @@ public class Movie {
 	private int suggestedPoints;
 	
 	
+	public String getImageString() {
+		return imageString;
+	}
+
+
+	public void setImageString(String imageString) {
+		this.imageString = imageString;
+	}
+
+
 	public float getAverageReview() {
 		 if (this.reviews.size() == 0) {
 	            return 0.0f;

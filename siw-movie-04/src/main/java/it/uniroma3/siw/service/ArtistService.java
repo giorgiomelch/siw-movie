@@ -1,5 +1,7 @@
 package it.uniroma3.siw.service;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Movie;
@@ -59,5 +62,14 @@ public class ArtistService {
 
 	public void saveArtist(@Valid Artist artist) {
 		this.artistRepository.save(artist);		
+	}
+	
+	@Transactional
+	public void createArtist(Artist artist, MultipartFile image) {
+		try {
+			String base64Image = Base64.getEncoder().encodeToString(image.getBytes());
+			artist.setImageString(base64Image);
+			this.saveArtist(artist);
+			} catch(IOException e) {}
 	}
 }

@@ -32,6 +32,10 @@ public class Artist {
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
+
+	@Column(length=10000000)
+	private String imageString;
+	
 	private String urlOfPicture;
 	@ManyToMany
 	private List<Movie> moviesActed;
@@ -43,7 +47,7 @@ public class Artist {
 	public Artist() {
 		this.moviesActed = new LinkedList<>();
 		this.moviesDirected = new LinkedList<>();
-	};
+	}
 	
 	@Override
 	public int hashCode() {
@@ -62,6 +66,14 @@ public class Artist {
 				&& Objects.equals(name, other.name) && Objects.equals(surname, other.surname);
 	}
 	
+
+	public String getImageString() {
+		return imageString;
+	}
+
+	public void setImageString(String imageString) {
+		this.imageString = imageString;
+	}
 
 	public Long getId() {
 		return id;

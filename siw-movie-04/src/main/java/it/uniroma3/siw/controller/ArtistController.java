@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.controller.validator.ArtistValidator;
 import it.uniroma3.siw.model.Artist;
@@ -38,10 +39,11 @@ public class ArtistController {
 		return "/admin/formNewArtist.html";
 	}
 	@PostMapping("/admin/artist")
-	public String newArtist(@Valid @ModelAttribute("artist") Artist artist, BindingResult bindingResult, Model model) {
+	public String newArtist(@Valid @ModelAttribute("artist") Artist artist, BindingResult bindingResult,
+			MultipartFile image, Model model) {
 		this.artistValidator.validate(artist, bindingResult);
 		if(!bindingResult.hasErrors()) {
-			this.artistService.saveArtist(artist);
+			this.artistService.createArtist(artist, image);
 			model.addAttribute("artist", artist);
 			return "generic/artist.html";
 		}

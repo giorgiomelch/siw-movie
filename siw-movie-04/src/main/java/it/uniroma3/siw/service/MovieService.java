@@ -1,11 +1,15 @@
 package it.uniroma3.siw.service;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.model.Review;
@@ -19,8 +23,12 @@ public class MovieService {
 	@Autowired private ArtistRepository artistRepository;
 
 	@Transactional
-	public void createNewMovie(Movie movie) {
-		this.movieRepository.save(movie);
+	public void createNewMovie(Movie movie, MultipartFile image) {
+		try {
+			String base64Image = Base64.getEncoder().encodeToString(image.getBytes());
+			movie.setImageString(base64Image);
+			this.saveMovie(movie);
+			} catch(IOException e) {}
 	}
 
 	public Movie findMovieById(Long id) {

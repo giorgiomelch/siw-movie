@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.controller.validator.MovieValidator;
 import it.uniroma3.siw.model.Credentials;
@@ -49,10 +51,12 @@ public class MovieController {
 	}
 	@Transactional
 	@PostMapping("/admin/movies")
-	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
+	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, 
+			MultipartFile image, Model model) {
 		this.movieValidator.validate(movie, bindingResult);
 		if(!bindingResult.hasErrors()) {
-			this.movieService.saveMovie(movie);
+			this.movieService.createNewMovie(movie, image);
+			
 			model.addAttribute("movie", movie);
 			return "generic/movie.html";
 		}
