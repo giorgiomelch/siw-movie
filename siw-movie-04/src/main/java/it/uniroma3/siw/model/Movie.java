@@ -28,8 +28,6 @@ public class Movie {
 	@Min(1900)
 	@Max(2023)
 	private Integer year;
-	private String urlImage;
-	
 	@Column(length=10000000)
 	private String imageString;
 	
@@ -130,18 +128,10 @@ public class Movie {
 	public void setYear(Integer year) {
 		this.year = year;
 	}
-
-	public String getUrlImage() {
-		return urlImage;
-	}
-
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
-	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, urlImage, year);
+		return Objects.hash(id, title, year);
 	}
 
 	@Override
@@ -154,7 +144,7 @@ public class Movie {
 			return false;
 		Movie other = (Movie) obj;
 		return Objects.equals(id, other.id) && Objects.equals(title, other.title)
-				&& Objects.equals(urlImage, other.urlImage) && Objects.equals(year, other.year);
+				&& Objects.equals(year, other.year);
 	}
 
 	

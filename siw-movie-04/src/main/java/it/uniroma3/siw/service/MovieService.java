@@ -143,12 +143,18 @@ public class MovieService {
 	public void resetAllToZeroSuggestedPoints() {
 		this.movieRepository.updateAllSuggestedPointsToZero(0);
 	}
-
-	public Movie update(Long idMovie, Movie newMovie) {
+	@Transactional 
+	public Movie update(Long idMovie, Movie newMovie, MultipartFile image) {
 		Movie movie = this.movieRepository.findById(idMovie).get();
 		movie.setTitle(newMovie.getTitle());
 		movie.setYear(newMovie.getYear());
-		this.movieRepository.save(movie);
+		if(!image.isEmpty()) {			
+			try {
+				String base64Image = Base64.getEncoder().encodeToString(image.getBytes());
+				movie.setImageString(base64Image);
+				} catch(IOException e) {}
+			this.movieRepository.save(movie);
+		}
 		return movie;
 	}
 

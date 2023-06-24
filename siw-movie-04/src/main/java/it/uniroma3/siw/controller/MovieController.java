@@ -174,10 +174,11 @@ public class MovieController {
 	}
 	@PostMapping("/admin/updateMovieData/{idMovie}")
 		public String updateMovieData(@PathVariable("idMovie") Long idMovie, 
-				@Valid @ModelAttribute("movie") Movie newMovie, BindingResult bindingResult, Model model) {
+				@Valid @ModelAttribute("movie") Movie newMovie, BindingResult bindingResult,
+				MultipartFile image, Model model) {
 		this.movieValidator.validate(newMovie, bindingResult);
 		if(!bindingResult.hasErrors()) {
-			model.addAttribute("movie", this.movieService.update(idMovie, newMovie));
+			model.addAttribute("movie", this.movieService.update(idMovie, newMovie, image));
 			return "/admin/formUpdateMovie.html";
 		}
 		else {

@@ -35,7 +35,7 @@
 							Regista: <span th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></span>
 						</div>
 						<div th:unless="${movie.director}">Nessun direttore associato al film</div>
-				        <div class="flex-item-2"><img th:src="${movie.urlImage}" width="20%"></div>
+				        <div class="flex-item-2"><img th:src="@{'data:image;base64,' + ${movie.imageString}}" width="20%"></div>
 				        <form th:action="@{'/admin/formUpdateMovieData'+'/'+ ${movie.id}}" method="GET">
 							 <div>
 								<span><button class="button-orange" type="submit">modifica film</button></span>
@@ -58,7 +58,7 @@
 			</div>
         </div>
         <div class="imghome">
-			<a href="/"><img src="/images/home.png" width="20%"/></a>
+			<a href="/admin/manageMovies"><img src="/images/list.png" width="70%"/></a>
 		</div>
         <div class="footer"></div>
 	</div>

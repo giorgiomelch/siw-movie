@@ -21,7 +21,7 @@
 	
 	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
 	<h1>Modifica film</h1>
-	<form th:action="@{/admin/updateMovieData/{id}(id=${movie.id})}" method="POST" th:object="${movie}">
+	<form th:action="@{/admin/updateMovieData/{id}(id=${movie.id})}" method="POST" th:object="${movie}" enctype="multipart/form-data">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 		</div>
@@ -39,10 +39,9 @@
 		</div>
 
 		<div>
-			<label for="urlImmagine">URL immagine:</label> 
-			<span><input type="url" th:field="${movie.urlImage}" id="urlImmagine" /></span>
-		</div>
-		
+        	<input type="file" th:name="image" accept="/image*">
+        </div>
+        
 		<div>
 			<span><button type="submit">Conferma</button></span>
 		</div>

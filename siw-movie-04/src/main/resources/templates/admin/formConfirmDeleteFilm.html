@@ -30,7 +30,7 @@
 						<h1>Sicuro di voler cancellare:</h1>
 						<h3 th:text="${movie.title}">Titolo Film</h3>
 				        <div>Anno: <span th:text="'(' + ${movie.year} + ')'">anno in cifre</span></div>
-				        <div class="flex-item-2"><img th:src="${movie.urlImage}" width="20%"></div>
+				        <div class="flex-item-2"><img th:src="@{'data:image;base64,' + ${movie.imageString}}" width="20%"></div>
 				        <div class="flexbox-container-horizontal-sa">
 							<form th:action="@{'/admin/deleteMovie/' + ${movie.id}}" method="GET" >
 								 <div>
