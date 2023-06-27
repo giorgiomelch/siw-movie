@@ -4,30 +4,32 @@
 		<title>
 			Film non trovato
 		</title>
-		<link rel="stylesheet" href="/css/stileError.css" />
+		<link rel="stylesheet" href="/css/mioStile2.css" />
 	</head>
 	
-	<body>
-		<header>
-			<div th:if="${#request.userPrincipal}">
+<body>
+	<div class="flexbox-container-vertical">
+        
+        <div class="header">
+			<img src="/images/logo-siw.png" width="70%"/>
+			<div class="text" th:if="${#request.userPrincipal}">
 				<span th:text="${#request.userPrincipal.principal.username}"></span>
 				<a href="/logout">Logout</a>
 			</div>
-			<div th:unless="${#request.userPrincipal}">
+			<div class="text" th:unless="${#request.userPrincipal}">
 				<a href="/login">Login</a>
 			</div>
-		</header>
-		<div class="flex-center">
-		  <div class="flex-item-center">
-		    <h1>Artista non trovato</h1>
-		  </div>
 		</div>
-		<div class="flex-center-bottom">
-		  <div class="flex-item-center">
-		    <a href="/"><img src="/images/home.png" width="20%"/></a>
-		  </div>
-		</div>
-		
-		<footer></footer>
-	</body>
+	
+		<div class="section">
+			<div class="flexbox-container-horizontal-sa">
+				<div class="flex-item-small">
+					<h1>Errore: artista non trovato</h1>
+					<a href="/"><img src="/images/home.png" width="20%"/></a>
+				</div>
+			</div>
+        </div>
+        <div class="footer"></div>
+	</div>
+</body>
 </html>

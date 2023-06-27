@@ -89,6 +89,15 @@ label {
 .flex-item-register button{
 	margin-left: 190px;
 }
+.flex-item-small{
+	height: 250px;
+	width: 330px;
+	text-align: center;
+	border: 4px solid black;
+	background-color: whitesmoke;
+	padding: 40px;
+}
+
 .flexbox-item-solo{
 	height: 480px;
 	width: 350px;
