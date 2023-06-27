@@ -34,7 +34,7 @@
 				
 				<div class="flex-item-2">
 					<div  class="flexbox-item-scroll">
-						<h1 th:text="${movie.title}+'(' + ${movie.year} + ')'"></h1>
+						<h1 th:text="${movie.title}+' (' + ${movie.year} + ')'"></h1>
 						 <form th:action="@{'/registered/suggestMovie' + '/' + ${movie.id}}" method="GET">
 							 <div>
 								<span><button type="submit">Suggerisci film</button></span>
@@ -78,18 +78,18 @@
 										<div>
 											<a th:if="${credenziali.getUser()==review.user}">
 												<form th:action="@{'/registered/formConfirmDeleteReview/'+${review.id}}" method="GET">
-												<span><button type="submit">Elimina recensione</button></span>
+													<span><button class="button-red" type="submit">Elimina recensione</button></span>
 												</form>
 											</a>
 											<div th:unless="${credenziali.getUser()==review.user}">
 												<a th:if="${credenziali!=null && credenziali.isAdmin()}">
 													<form th:action="@{'/registered/formConfirmDeleteReview/'+${review.id}}" method="GET">
-													<span><button type="submit">Elimina recensione</button></span>
+													<span><button class="button-red" type="submit">Elimina da admin</button></span>
 												</form>
 												</a>
 											</div>
 										</div>
-										
+										<p></p>
 									</li>
 								</ul>						
 							</div>

@@ -5,40 +5,63 @@
 	<title>
 		Form confirm to delete film
 	</title>
-	<link rel="stylesheet" href="/css/stileGenerale.css" />
+	<link rel="stylesheet" href="/css/mioStile2.css" />
 </head>
 
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-	
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	
-	<div>
-		<span>Sicuro di voler cancellare questa recensione </span>
-		<div><span th:text="${review.title} + ' voto: ' + ${review.rating}"></span></div>
-		<div><span th:text="${review.text}"></span></div>
-	</div>
-	<div th:if="${credenziali!=null && credenziali.isAdmin()}">
-		<form th:action="@{'/admin/deleteReview/' + ${review.id}}" method="GET" >
-			<div>
-				<span><button type="submit">Conferma</button></span>
+	<div class="flexbox-container-vertical">
+        
+        <div class="header">
+			<img src="/images/logo-siw.png" width="70%"/>
+			<div class="text" th:if="${#request.userPrincipal}">
+				<span th:text="${#request.userPrincipal.principal.username}"></span>
+				<a href="/logout">Logout</a>
 			</div>
-		</form>	
-	</div>
-	<div th:unless="${credenziali!=null && credenziali.isAdmin()}">
-		<form th:action="@{'/registered/deleteReviewRegistered/' + ${review.id}}" method="GET" >
-			<div>
-				<span><button type="submit">Conferma</button></span>
+			<div class="text" th:unless="${#request.userPrincipal}">
+				<a href="/login">Login</a>
 			</div>
-		</form>	
+		</div>
+	
+		<div class="section">
+			<div class="flexbox-container-horizontal-sa">
+				
+				<div class="flex-item-small">
+					<div class="scrollable-content">
+						<h3>Sicuro di voler cancellare questa recensione: </h3>
+						<div><span th:text="${review.title}"></span></div>
+						<div><span th:text="'voto: ' +${review.rating}"></span></div>
+						<div><span th:text="${review.text}"></span></div>
+						<div th:if="${credenziali!=null && credenziali.isAdmin()}">
+							<form th:action="@{'/admin/deleteReview/' + ${review.id}}" method="GET" >
+								<div>
+									<span><button class="button-red" type="submit">Conferma</button></span>
+								</div>
+							</form>	
+						</div>
+						<div th:unless="${credenziali!=null && credenziali.isAdmin()}">
+							<form th:action="@{'/registered/deleteReviewRegistered/' + ${review.id}}" method="GET" >
+								<div>
+									<span><button class="button-red" type="submit">Conferma</button></span>
+								</div>
+							</form>	
+						</div>
+						<div>
+							<form th:action="@{'/generic/movies/' + ${review.movie.id}}" method="GET" >
+								<div>
+									<span><button class="button-green" type="submit">Annulla</button></span>
+								</div>
+							</form>	
+						</div>
+					</div>
+						
+					
+				</div>
+	        </div>
+	        <div class="imghome">
+				<a href="/"><img src="/images/home.png" width="20%"/></a>
+			</div>
+	        <div class="footer"></div>
+		</div>
 	</div>
 	
 </body>

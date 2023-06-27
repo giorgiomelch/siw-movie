@@ -16,7 +16,19 @@ import it.uniroma3.siw.repository.ReviewRepository;
 public class ReviewService {
 
 	@Autowired private ReviewRepository reviewRepository;
+	@Autowired private MovieService movieService;
+	@Autowired private UserService userService;
 	
+	@Transactional
+	public void createNewReview(Review review, Long idMovie) {
+		Movie movie=this.movieService.findMovieById(idMovie);
+		review.setMovie(movie);
+		this.movieService.addReviewToMovie(movie, review);
+		User user=userService.getCurrentUser();
+		this.userService.addReview(user, review);
+		review.setUser(user);
+		this.reviewRepository.save(review);
+	}
 	public Review findReviewById(Long id) {
 		return this.reviewRepository.findById(id).orElse(null);
 	}
@@ -30,27 +42,18 @@ public class ReviewService {
 		}
 	}
 	
-	@Transactional
-	public void setMovieToReview(Review review, Movie movie) {
-		review.setMovie(movie);
-		this.reviewRepository.save(review);
-	}
 	public boolean isTitleLengthOverMax(Review review) {
 		return review.getTitle()!=null && review.getTitle().length()>Review.getMaxLengthTitle();
 	}
 	public boolean isTextLengthOverMax(Review review) {
 		return review.getText()!=null && review.getText().length()>Review.getMaxLengthText();
 	}
-
-	public void setUser(Review review, User user) {
-		review.setUser(user);
-		this.reviewRepository.save(review);		
-	}
-
-	public void delete(Long idReview) {
-		Review review= this.findReviewById(idReview);
+	@Transactional
+	public void deleteReview(Long idReview) {
+		Review review=this.reviewRepository.findById(idReview).get();
+		this.movieService.removeReviewAssociationFromMovie(review);
+		this.userService.removeReviewAsscociationFromUser(review);
 		this.reviewRepository.delete(review);
-		
 	}
 
 }

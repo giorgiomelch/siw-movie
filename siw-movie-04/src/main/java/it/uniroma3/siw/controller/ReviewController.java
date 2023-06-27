@@ -15,7 +15,6 @@ import it.uniroma3.siw.controller.validator.OnlyOneReviewForUserValidator;
 import it.uniroma3.siw.controller.validator.ReviewValidator;
 import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.model.Review;
-import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.MovieService;
 import it.uniroma3.siw.service.ReviewService;
 import it.uniroma3.siw.service.UserService;
@@ -42,15 +41,8 @@ public class ReviewController {
 		this.reviewValidator.validate(review, bindingResult);
 		this.onlyOneReviewForUserValidator.validate(this.movieService.findMovieById(idMovie), bindingResult);
 		if(!bindingResult.hasErrors()) {
-			Movie movie=this.movieService.findMovieById(idMovie);
-			this.reviewService.setMovieToReview(review, movie);
-			this.movieService.addReviewToMovie(movie, review);
-			User user=userService.getCurrentUser();
-			this.userService.addReview(user, review);
-			this.reviewService.setUser(review, user);
-			
-			model.addAttribute("movie", movie);		
-			model.addAttribute("reviews",movie.getReviews());
+			this.reviewService.createNewReview(review, idMovie);
+			model.addAttribute("movie", this.movieService.findMovieById(idMovie));		
 			return "generic/movie.html";
 		}
 		else {
@@ -68,25 +60,20 @@ public class ReviewController {
 	}
 	@GetMapping("/admin/deleteReview/{idReview}")
 	public String deleteReview(@PathVariable ("idReview") Long idReview, Model model) {
-		Review review=this.reviewService.findReviewById(idReview);
-		if(review==null)
+		Movie movie=this.reviewService.findReviewById(idReview).getMovie();
+		if(this.reviewService.findReviewById(idReview)==null)
 			return "reviewError.html";
-		Movie movie=review.getMovie();
-		this.movieService.removeReviewAssociationFromMovie(review);
-		this.userService.removeReviewAsscociationFromUser(review);
-		this.reviewService.delete(idReview);
+		this.reviewService.deleteReview(idReview);
 		model.addAttribute("movie",movie);
 		return "generic/movie.html";
 	}
 	@GetMapping("/registered/deleteReviewRegistered/{idReview}")
 	public String deleteReviewRegistered(@PathVariable ("idReview") Long idReview, Model model) {
+		Movie movie=this.reviewService.findReviewById(idReview).getMovie();
 		Review review=this.reviewService.findReviewById(idReview);
 		if(review==null || !review.getUser().equals(userService.getCurrentUser()))
 			return "reviewError.html";
-		Movie movie=review.getMovie();
-		this.movieService.removeReviewAssociationFromMovie(review);
-		this.userService.removeReviewAsscociationFromUser(review);
-		this.reviewService.delete(idReview);
+		this.reviewService.deleteReview(idReview);
 		model.addAttribute("movie",movie);
 		return "generic/movie.html";
 	}

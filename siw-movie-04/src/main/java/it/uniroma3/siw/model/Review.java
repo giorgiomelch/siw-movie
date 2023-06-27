@@ -24,7 +24,7 @@ public class Review {
 	private static int maxLengthTitle=20;
 	@NotBlank
 	private String text;
-	private static int maxLengthText=150;
+	private static int maxLengthText=300;
 	@NotNull
 	@Min(1)
 	@Max(5)
