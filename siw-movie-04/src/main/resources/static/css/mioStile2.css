@@ -103,6 +103,18 @@ label {
 .scrollable-content {
   flex-grow: 1;
 }
+.container-bottom-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: end;
+  height: 100%;
+  width: 100%;
+}
+
+.flexbox-indietro {
+  padding: 30px;
+}
 
 .header{
 	min-height: 10%;

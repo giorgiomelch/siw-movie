@@ -30,7 +30,7 @@
 				<div class="flexbox-item-solo">
 					<div class="scrollable-content">
 						<h1 th:text="${movie.title}">Titolo Film</h1>
-				        <div>Anno: <span th:text="'(' + ${movie.year} + ')'">anno in cifre</span></div>
+				        <div>Anno: <span th:text="${movie.year}">anno in cifre</span></div>
 				        <div th:if="${movie.director}">
 							Regista: <span th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></span>
 						</div>

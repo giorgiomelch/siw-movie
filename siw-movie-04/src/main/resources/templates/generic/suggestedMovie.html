@@ -43,11 +43,12 @@
 						</form>
 				    
 						 <div th:if="${movie.director}">
-						  	Regista: <span th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></span>
+						  	<strong>Regista:</strong> 
+						  	<span th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></span>
 						 </div>
 						 <div th:unless="${movie.director}">L'archivio non contiene il regista del film</div>
 						 <div>
-							 <span>Attori:</span>
+							 <strong>Attori:</strong>
 							<ul>
 								<li th:each="actor : ${movie.actors}">
 									<span th:text="${actor.name} + ' ' + ${actor.surname}"></span>
