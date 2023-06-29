@@ -19,6 +19,7 @@ import it.uniroma3.siw.repository.ArtistRepository;
 public class ArtistService {
 
 	@Autowired private ArtistRepository artistRepository;
+	@Autowired private MovieService movieService;
 	
 	public Iterable<Artist> findAllArtist(){
 		return this.artistRepository.findAll();
@@ -86,5 +87,11 @@ public class ArtistService {
 		}
 		this.artistRepository.save(artist);
 		return artist;
+	}
+
+	public void deleteArtist(Long idArtist) {
+		this.movieService.removeArtistAssociationFromAllMovie(idArtist); 
+		this.removeMovieAssociationFromActor(idArtist);
+		this.delete(idArtist);
 	}
 }

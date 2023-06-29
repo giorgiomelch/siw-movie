@@ -27,9 +27,7 @@
 				<div class="flex-item-register">
 					<h1>Aggiungi un film</h1>
 					<form th:action="@{/admin/movies}" method="POST" th:object="${movie}" enctype="multipart/form-data">
-						<div th:if="${#fields.hasGlobalErrors()}">
-							<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-						</div>
+						
 						
 						<div>
 							<label for="titolo">Titolo:</label> 

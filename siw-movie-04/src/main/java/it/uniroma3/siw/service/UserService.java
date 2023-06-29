@@ -20,6 +20,7 @@ public class UserService {
 	@Autowired private UserRepository userRepository;
 	@Autowired private CredentialsService credentialsService;
 	@Autowired private ReviewRepository reviewRepository;
+	@Autowired private MovieService movieService;
 	
 
 	@Transactional
@@ -54,5 +55,10 @@ public class UserService {
 	@Transactional
 	public void resetAllToNullSuggestedMovie() {
 		this.userRepository.updateAllSuggestedMovieToNull();
+	}
+	@Transactional
+	public void resetSuggestedMoviePoints() {
+		this.resetAllToNullSuggestedMovie();
+		this.movieService.resetAllToZeroSuggestedPoints();
 	}
 }

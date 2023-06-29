@@ -106,9 +106,7 @@ public class ArtistController {
 		if(artist==null)
 			return "generic/artistError.html";
 		else {
-			this.movieService.removeArtistAssociationFromAllMovie(idArtist); //problema
-			this.artistService.removeMovieAssociationFromActor(idArtist);
-			this.artistService.delete(idArtist);
+			this.artistService.deleteArtist(idArtist);
 			model.addAttribute("artists", this.artistService.findAllArtist());
 			return "admin/manageArtist.html";
 		}

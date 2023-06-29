@@ -156,10 +156,7 @@ public class MovieController {
 		Movie movie=this.movieService.findMovieById(idMovie);
 		if(movie==null)
 			return "generic/movieError.html";
-		this.artistService.removeMovieAssociationFromAllActor(movie);
-		this.movieService.removeActorAssociationFromAllMovie(idMovie);
-		this.reviewService.removeMovieAssociationFromReview(movie);
-		this.movieService.delete(idMovie);
+		this.movieService.deleteMovie(idMovie);
 		model.addAttribute("movies", this.movieService.findAllMovie());
 		return "admin/manageMovies.html";
 	}	

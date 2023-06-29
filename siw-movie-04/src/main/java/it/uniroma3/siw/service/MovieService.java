@@ -21,6 +21,8 @@ public class MovieService {
 
 	@Autowired private MovieRepository movieRepository;
 	@Autowired private ArtistRepository artistRepository;
+	@Autowired private ArtistService artistService;
+	@Autowired private ReviewService reviewService;
 
 	@Transactional
 	public void createNewMovie(Movie movie, MultipartFile image) {
@@ -156,6 +158,14 @@ public class MovieService {
 			this.movieRepository.save(movie);
 		}
 		return movie;
+	}
+
+	public void deleteMovie(Long idMovie) {
+		Movie movie=this.findMovieById(idMovie);		
+		this.artistService.removeMovieAssociationFromAllActor(movie);
+		this.removeActorAssociationFromAllMovie(idMovie);
+		this.reviewService.removeMovieAssociationFromReview(movie);
+		this.delete(idMovie);
 	}
 
 }
