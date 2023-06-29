@@ -35,7 +35,12 @@ li{
 	background-color: ghostwhite;
 	display: flex;
  	align-items: center;
+ 	justify-content: flex-end;
  	border: 3px black;
+ 	background-image: url('/images/logo-siw.png');
+ 	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 150px;
 }
 .header img {
 	 max-width: 150px;

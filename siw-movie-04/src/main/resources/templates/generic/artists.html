@@ -6,7 +6,6 @@
 	</head>
 <body>
 	<header class="header">
-		   <img src="/images/logo-siw.png" width="100%"/>
 		   <div class="text" th:if="${#request.userPrincipal}">
 				<span th:text="${#request.userPrincipal.principal.username}"></span>
 				<a href="/logout">Logout</a>

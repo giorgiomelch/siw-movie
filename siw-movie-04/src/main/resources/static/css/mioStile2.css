@@ -48,6 +48,7 @@ li{
 	flex-direction: column;
 	align-items: center;
 	margin: 10px;
+	padding: 10px;
 	width: 50%;
 	background-color: ghostwhite;
 	border: 4px solid black;
@@ -132,7 +133,12 @@ label {
 	background-color: ghostwhite;
 	display: flex;
  	align-items: center;
+ 	justify-content: flex-end;
  	border: 3px black;
+ 	background-image: url('/images/logo-siw.png');
+ 	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 150px;
 }
 .header a{
 	color: grey;

@@ -3,35 +3,49 @@
 
 <head>
 	<title>SiwMovie - Registrazione conclusa</title>
-	<link rel="stylesheet" href="/css/stileGenerale.css" />
+	<link rel="stylesheet" href="/css/mioStile2.css" />
 </head>
 
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
+	<div class="flexbox-container-vertical">
+        
+        <div class="header">
+			<div class="text" th:if="${#request.userPrincipal}">
+				<span th:text="${#request.userPrincipal.principal.username}"></span>
+				<a href="/logout">Logout</a>
+			</div>
+			<div class="text" th:unless="${#request.userPrincipal}">
+				<a href="/login">Login</a>
+			</div>
 		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
+		<div class="section">
+				<div class="flexbox-container-horizontal-sa">
+					
+					<div class="flexbox-item-solo">
+						<div class="scrollable-content">
+							<h1>Congratulazioni ti sei registrato!</h1>
+							<div>
+								<span>Nome: </span>
+								<span th:text="${user.name}"></span>
+							</div>
+							<div>
+								<span>Cognome: </span>
+								<span th:text="${user.surname}"></span>
+							</div>
+							<div>
+								<span>Email: </span>
+								<span th:text="${user.email}"></span>
+							</div>
+						</div>
+					</div>
+						
+					
+				</div>
+	        </div>
+	        <div class="footer"></div>
 		</div>
-	</header>
+	</div>
 
-	<div>
-		<a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
-	</div>
-	<h1>Congratulazioni ti sei registrato!</h1>
-	<div>
-		<span>Nome: </span>
-		<span th:text="${user.name}"></span>
-	</div>
-	<div>
-		<span>Cognome: </span>
-		<span th:text="${user.surname}"></span>
-	</div>
-	<div>
-		<span>Email: </span>
-		<span th:text="${user.email}"></span>
-	</div>
+	
 </body>
 </html>

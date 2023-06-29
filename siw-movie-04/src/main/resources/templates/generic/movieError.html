@@ -11,7 +11,6 @@
 	<div class="flexbox-container-vertical">
         
         <div class="header">
-			<img src="/images/logo-siw.png" width="70%"/>
 			<div class="text" th:if="${#request.userPrincipal}">
 				<span th:text="${#request.userPrincipal.principal.username}"></span>
 				<a href="/logout">Logout</a>
