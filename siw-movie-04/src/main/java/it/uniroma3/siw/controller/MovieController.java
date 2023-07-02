@@ -29,7 +29,7 @@ import it.uniroma3.siw.service.UserService;
 
 @Controller
 public class MovieController {
-	
+
 	@Autowired MovieService movieService;
 	@Autowired ArtistService artistService;
 	@Autowired ReviewService reviewService;
@@ -37,13 +37,6 @@ public class MovieController {
 	@Autowired CredentialsService credentialsService;
 	@Autowired MovieValidator movieValidator;
 
-	@GetMapping("/daCancellare")
-	public String daCancellare(Model model) {
-		model.addAttribute("movie", this.movieService.findMovieBySuggestedPoints());
-		model.addAttribute("actor",this.artistService.findAllArtist());
-		return "daCancellare.html";
-	}
-	
 	@GetMapping(value="/admin/formNewMovie")
 	public String formNewMovie(Model model) {
 		model.addAttribute("movie", new Movie());
@@ -56,7 +49,7 @@ public class MovieController {
 		this.movieValidator.validate(movie, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			this.movieService.createNewMovie(movie, image);
-			
+
 			model.addAttribute("movie", movie);
 			return "generic/movie.html";
 		}
@@ -64,7 +57,7 @@ public class MovieController {
 			return "admin/formNewMovie.html";
 		}
 	}
-	
+
 	@GetMapping("/admin/manageMovies")
 	public String manageMovies(Model model) {
 		model.addAttribute("movies", this.movieService.findAllMovie());
@@ -103,7 +96,7 @@ public class MovieController {
 		}
 		else
 			return "generic/movieError.html";
-		}
+	}
 	@Transactional
 	@GetMapping("/admin/updateActorsOfMovie/{idMovie}")
 	public String updateActorsOfMovie(@PathVariable("idMovie") Long idMovie, Model model) {
@@ -126,7 +119,7 @@ public class MovieController {
 		model.addAttribute("notActorsOfMovie", this.artistService.findAllArtistByMoviesActedIsNotContaining(movie));
 		return "admin/actorsToAdd.html";
 	}
-	
+
 	@Transactional
 	@GetMapping("/admin/removeActorFromMovie/{idActor}/{idMovie}")
 	public String removeActorFromMovie(@PathVariable("idActor") Long idActor, @PathVariable("idMovie") Long idMovie, Model model) {
@@ -139,7 +132,7 @@ public class MovieController {
 		model.addAttribute("notActorsOfMovie", this.artistService.findAllArtistByMoviesActedIsNotContaining(movie));
 		return "admin/actorsToAdd.html";
 	}
-	
+
 	@GetMapping("/admin/formConfirmDeleteFilm/{idMovie}")
 	public String formConfirmDeleteFilm(@PathVariable("idMovie") Long idMovie, Model model) {
 		Movie movie=this.movieService.findMovieById(idMovie);
@@ -160,7 +153,7 @@ public class MovieController {
 		model.addAttribute("movies", this.movieService.findAllMovie());
 		return "admin/manageMovies.html";
 	}	
-	
+
 	@GetMapping("/admin/formUpdateMovieData/{idMovie}")
 	public String formUpdateMovieData(@PathVariable("idMovie") Long idMovie, Model model) {
 		Movie movie=this.movieService.findMovieById(idMovie);
@@ -170,9 +163,9 @@ public class MovieController {
 		return "admin/formUpdateMovieData.html";
 	}
 	@PostMapping("/admin/updateMovieData/{idMovie}")
-		public String updateMovieData(@PathVariable("idMovie") Long idMovie, 
-				@Valid @ModelAttribute("movie") Movie newMovie, BindingResult bindingResult,
-				MultipartFile image, Model model) {
+	public String updateMovieData(@PathVariable("idMovie") Long idMovie, 
+			@Valid @ModelAttribute("movie") Movie newMovie, BindingResult bindingResult,
+			MultipartFile image, Model model) {
 		this.movieValidator.validate(newMovie, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			model.addAttribute("movie", this.movieService.update(idMovie, newMovie, image));
@@ -181,30 +174,30 @@ public class MovieController {
 		else {
 			model.addAttribute("movie", this.movieService.findMovieById(idMovie));
 		}
-			return "/admin/formUpdateMovieData.html";
-		}
-	
-	
+		return "/admin/formUpdateMovieData.html";
+	}
+
+
 	@Transactional
 	@GetMapping("/registered/suggestMovie/{idMovie}")
 	public String increaseSuggestedPoints(@PathVariable("idMovie") Long idMovie, Model model) {
 		Movie movie=this.movieService.findMovieById(idMovie);
-		
+
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		User user=credentials.getUser();
-		
+
 		if(user.getSuggestedMovie()!=null) {
 			Long idMovieToDecrease=user.getSuggestedMovie().getId();
 			this.movieService.decreaseSuggestedPoint(idMovieToDecrease);
 		}
 		this.movieService.increaseSuggestedPoint(idMovie);
 		this.userService.setSuggestedMovie(user, movie);
-		
+
 		model.addAttribute("movie", movie);
 		return "generic/movie.html";
 	}
-	
+
 	@GetMapping("/generic/suggestedMovie")
 	public String getSuggestedMovie(Model model) {
 		Movie movie= this.movieService.findMovieBySuggestedPoints();
@@ -232,6 +225,6 @@ public class MovieController {
 		model.addAttribute("movies", this.movieService.findByYear(year));
 		return "generic/movies.html";
 	}
-	
+
 
 }

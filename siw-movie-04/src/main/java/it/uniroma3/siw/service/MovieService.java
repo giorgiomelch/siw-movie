@@ -155,8 +155,8 @@ public class MovieService {
 				String base64Image = Base64.getEncoder().encodeToString(image.getBytes());
 				movie.setImageString(base64Image);
 				} catch(IOException e) {}
-			this.movieRepository.save(movie);
 		}
+		this.movieRepository.save(movie);
 		return movie;
 	}
 
