@@ -166,7 +166,7 @@ public class MovieController {
 	public String updateMovieData(@PathVariable("idMovie") Long idMovie, 
 			@Valid @ModelAttribute("movie") Movie newMovie, BindingResult bindingResult,
 			MultipartFile image, Model model) {
-		this.movieValidator.validate(newMovie, bindingResult);
+		//this.movieValidator.validate(newMovie, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			model.addAttribute("movie", this.movieService.update(idMovie, newMovie, image));
 			return "/admin/formUpdateMovie.html";
