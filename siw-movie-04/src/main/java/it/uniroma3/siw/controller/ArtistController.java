@@ -71,7 +71,8 @@ public class ArtistController {
 	public String updateArtistData(@PathVariable("idArtist") Long idArtist, 
 			@Valid @ModelAttribute("artist") Artist newArtist, BindingResult bindingResult,
 			MultipartFile image, Model model) {
-		this.artistValidator.validate(newArtist, bindingResult);
+		if(!this.artistService.sameArtist(idArtist,newArtist))
+			this.artistValidator.validate(newArtist, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			model.addAttribute("artist", this.artistService.update(idArtist, newArtist, image));
 			return "admin/formUpdateArtist.html";

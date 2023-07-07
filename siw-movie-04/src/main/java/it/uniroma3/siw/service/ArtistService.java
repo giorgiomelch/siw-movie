@@ -94,4 +94,10 @@ public class ArtistService {
 		this.removeMovieAssociationFromActor(idArtist);
 		this.delete(idArtist);
 	}
+
+	public boolean sameArtist(Long idArtist, Artist newArtist) {
+		Artist artist= this.artistRepository.findById(idArtist).get();
+		return artist.getName().equals(newArtist.getName()) && artist.getSurname().equals(newArtist.getSurname())
+				&& artist.getDateOfBirth().equals(newArtist.getDateOfBirth());
+	}
 }

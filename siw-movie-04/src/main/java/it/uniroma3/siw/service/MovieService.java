@@ -167,5 +167,10 @@ public class MovieService {
 		this.reviewService.removeMovieAssociationFromReview(movie);
 		this.delete(idMovie);
 	}
+	@Transactional
+	public boolean sameFilm(Long idMovie, Movie newMovie) {
+		Movie movie=this.findMovieById(idMovie);
+		return newMovie.getTitle().equals(newMovie.getTitle()) && (movie.getYear().equals(newMovie.getYear()));
+	}
 
 }

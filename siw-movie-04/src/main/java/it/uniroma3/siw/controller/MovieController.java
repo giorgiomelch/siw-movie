@@ -162,11 +162,14 @@ public class MovieController {
 		model.addAttribute("movie",movie);
 		return "admin/formUpdateMovieData.html";
 	}
+	@Transactional
 	@PostMapping("/admin/updateMovieData/{idMovie}")
 	public String updateMovieData(@PathVariable("idMovie") Long idMovie, 
 			@Valid @ModelAttribute("movie") Movie newMovie, BindingResult bindingResult,
 			MultipartFile image, Model model) {
-		//this.movieValidator.validate(newMovie, bindingResult);
+		if(!this.movieService.sameFilm(idMovie, newMovie)) {
+			this.movieValidator.validate(newMovie, bindingResult);
+		}
 		if(!bindingResult.hasErrors()) {
 			model.addAttribute("movie", this.movieService.update(idMovie, newMovie, image));
 			return "/admin/formUpdateMovie.html";

@@ -40,7 +40,7 @@
 						<div>
 							<label for="anno">Anno:</label> 
 							<span><input required type="text" th:field="${movie.year}" id="anno"/></span>
-							<span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
+							<span th:if="${#fields.hasErrors('year')}" th:errors="${movie.year}"></span>
 						</div>
 				
 						<div>
