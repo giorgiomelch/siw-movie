@@ -5,7 +5,7 @@
 - Inserimento nuovo Film
 - Modifica Artista già esistente
 - Modifica Film già esistente
-- Cancellazione recensione
+- Cancellazione Film, Artista, recensione, 
 - Reset dei voti effettuati dagli utenti registarti per consigliare un film
 - Visualizzazione di tutte le informazioni contenute dal sistema
 # UTENTE REGISTRATO
